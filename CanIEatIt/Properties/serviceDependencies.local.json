@@ -3,6 +3,9 @@
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:CanIEatItContext"
+    },
+    "secrets1": {
+      "type": "secrets.user"
     }
   }
 }
