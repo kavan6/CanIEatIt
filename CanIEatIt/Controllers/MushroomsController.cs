@@ -25,11 +25,47 @@ namespace CanIEatIt.Controllers
         }
 
         // GET: Mushrooms
-        public async Task<IActionResult> Database()
+        public async Task<IActionResult> Database(bool? edible, string mushroomLocation, string mushroomFamily, string searchString)
         {
-            return _context.Mushroom != null ?
-                        View(await _context.Mushroom.ToListAsync()) :
-                        Problem("Entity set 'CanIEatItContext.Mushroom'  is null.");
+            if (_context.Mushroom == null)
+            {
+                return Problem("Entity set 'MushroomContext.Mushroom' is null.");
+            }
+
+            IQueryable<string> locationQuery = from m in _context.Mushroom orderby m.Location select m.Location;
+
+            IQueryable<string> familyQuery = from m in _context.Mushroom orderby m.Family select m.Family;
+
+            var mushrooms = from m in _context.Mushroom select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(mushroomLocation))
+            {
+                mushrooms = mushrooms.Where(x => x.Location == mushroomLocation);
+            }
+
+            if (!string.IsNullOrEmpty(mushroomFamily))
+            {
+                mushrooms = mushrooms.Where(x => x.Family == mushroomFamily);
+            }
+
+            if (edible.HasValue)
+            {
+                mushrooms = mushrooms.Where(x => x.Edible == edible);
+            }
+
+            var mushroomEdibleVM = new MushroomViewModel
+            {
+                Locations = new SelectList(await locationQuery.Distinct().ToListAsync()),
+                Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
+                Mushrooms = await mushrooms.ToListAsync()
+            };
+
+            return View(mushroomEdibleVM);
         }
 
         // GET: Mushrooms/Details/5
@@ -67,7 +103,7 @@ namespace CanIEatIt.Controllers
             {
                 _context.Add(mushroom);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Database));
             }
             return View(mushroom);
         }
@@ -118,7 +154,7 @@ namespace CanIEatIt.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Database));
             }
             return View(mushroom);
         }
@@ -157,7 +193,7 @@ namespace CanIEatIt.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Database));
         }
 
         private bool MushroomExists(int id)

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CanIEatIt.Models.Mushroom>
+﻿@model CanIEatIt.Models.MushroomViewModel
 
 @{
     ViewData["Title"] = "Database";
@@ -9,53 +9,71 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Mushrooms" asp-action="Database" method="get">
+    <p>
+        <select asp-for="MushroomLocation" asp-items="Model.Locations">
+            <option value="">All</option>
+        </select>
+
+        <select asp-for="MushroomFamily" asp-items="Model.Families">
+            <option value="">All</option>
+        </select>
+
+        Edible: <input type="text" asp-for="Edible"/>
+
+        Name: <input type="text" asp-for="SearchString"/>
+        <input type="submit" value="Filter"/>
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Family)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].Family)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CapDiameter)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].CapDiameter)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Height)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].Height)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Edible)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].Edible)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EdibleDescription)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].EdibleDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CapDescription)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].CapDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StemDescription)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].StemDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GillDescription)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].GillDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SporeDescription)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].SporeDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MicroscopicDescription)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].MicroscopicDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Note)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].Note)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Mushrooms!)
         {
             <tr>
                 <td>
