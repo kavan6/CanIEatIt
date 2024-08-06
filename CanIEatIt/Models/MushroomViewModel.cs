@@ -11,8 +11,8 @@ namespace CanIEatIt.Models
 
         public SelectList? Families { get; set; }
         public SelectList? Locations { get; set; }
-        public SelectList? CapDiameters { get; set; }
-        public SelectList? StemHeights { get; set; }
+        //public SelectList? CapDiameters { get; set; }
+        //public SelectList? StemHeights { get; set; }
 
         // Search variables
         public string? SearchName { get; set; }

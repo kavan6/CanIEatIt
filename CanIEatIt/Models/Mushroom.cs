@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace CanIEatIt.Models
 {
@@ -18,10 +19,14 @@ namespace CanIEatIt.Models
         [RegularExpression(@"^[0-9]+-[0-9]+cm")]
         [Display(Name = "Cap Diameter (cm)")]
         public string? CapDiameter { get; set; }
+        [HiddenInput]
+        public int? AverageDiameter { get; set; }
 
         [RegularExpression(@"^[0-9]+-[0-9]+cm")]
         [Display(Name = "Stem Height (cm)")]
         public string? StemHeight { get; set; }
+        [HiddenInput]
+        public int? AverageHeight { get; set; }
 
         [Required]
         public bool? Edible { get; set; }

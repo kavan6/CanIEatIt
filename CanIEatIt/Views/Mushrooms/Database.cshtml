@@ -24,13 +24,9 @@
             <option value="">All</option>
         </select>
 
-        <select asp-for="SearchCapDiameter" asp-items="Model.CapDiameters">
-            <option value="">All</option>
-        </select>
-
-        <select asp-for="SearchStemHeight" asp-items="Model.StemHeights">
-            <option value="">All</option>
-        </select>
+        Cap Diameter (cm): <input type="text" asp-for="SearchCapDiameter" />
+        
+        Stem Height (cm): <input type="text" asp-for="SearchStemHeight" />
 
         Edible: <input type="text" asp-for="SearchEdible"/>
 
