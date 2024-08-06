@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using CanIEatIt.Data;
 using CanIEatIt.Models;
+using CanIEatIt.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CanIEatItContext>(options =>
@@ -9,6 +10,8 @@ builder.Services.AddDbContext<CanIEatItContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 var app = builder.Build();
 

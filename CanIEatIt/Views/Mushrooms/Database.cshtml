@@ -1,4 +1,6 @@
 ﻿@model CanIEatIt.Models.MushroomViewModel
+@using CanIEatIt.Services
+@inject IServiceRepository _serviceRepo
 
 @{
     ViewData["Title"] = "Database";
@@ -12,18 +14,41 @@
 
 <form asp-controller="Mushrooms" asp-action="Database" method="get">
     <p>
-        <select asp-for="MushroomLocation" asp-items="Model.Locations">
+        Name: <input type="text" asp-for="SearchName" />
+
+        <select asp-for="SearchFamily" asp-items="Model.Families">
             <option value="">All</option>
         </select>
 
-        <select asp-for="MushroomFamily" asp-items="Model.Families">
+        <select asp-for="SearchLocation" asp-items="Model.Locations">
             <option value="">All</option>
         </select>
 
-        Edible: <input type="text" asp-for="Edible"/>
+        <select asp-for="SearchCapDiameter" asp-items="Model.CapDiameters">
+            <option value="">All</option>
+        </select>
 
-        Name: <input type="text" asp-for="SearchString"/>
-        <input type="submit" value="Filter"/>
+        <select asp-for="SearchStemHeight" asp-items="Model.StemHeights">
+            <option value="">All</option>
+        </select>
+
+        Edible: <input type="text" asp-for="SearchEdible"/>
+
+        Edible Keyword(s): <input type="text" asp-for="SearchEdibleDes" />
+
+        Cap Keyword(s): <input type="text" asp-for="SearchCapDes" />
+
+        Stem Keyword(s): <input type="text" asp-for="SearchStemDes" />
+
+        Gill Keyword(s): <input type="text" asp-for="SearchGillDes" />
+
+        Spore Keyword(s): <input type="text" asp-for="SearchSporeDes" />
+        
+        Microscopic Keyword(s): <input type="text" asp-for="SearchMicroDes" />
+
+        Note Keyword(s): <input type="text" asp-for="SearchNote" />
+
+        <input type="submit" value="Filter" />
     </p>
 </form>
 
@@ -43,7 +68,7 @@
                 @Html.DisplayNameFor(model => model.Mushrooms![0].CapDiameter)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].Height)
+                @Html.DisplayNameFor(model => model.Mushrooms![0].StemHeight)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mushrooms![0].Edible)
@@ -89,7 +114,7 @@
                     @Html.DisplayFor(modelItem => item.CapDiameter)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Height)
+                    @Html.DisplayFor(modelItem => item.StemHeight)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Edible)

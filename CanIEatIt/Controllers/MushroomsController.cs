@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CanIEatIt.Data;
 using CanIEatIt.Models;
+using CanIEatIt.Services;
 
 namespace CanIEatIt.Controllers
 {
+
     public class MushroomsController : Controller
     {
+        private readonly IServiceRepository _serviceRepository;
+
         private readonly CanIEatItContext _context;
 
-        public MushroomsController(CanIEatItContext context)
+        public MushroomsController(CanIEatItContext context, IServiceRepository services)
         {
             _context = context;
+            _serviceRepository = services;
         }
 
         public async Task<IActionResult> Index()
@@ -25,42 +30,92 @@ namespace CanIEatIt.Controllers
         }
 
         // GET: Mushrooms
-        public async Task<IActionResult> Database(bool? edible, string mushroomLocation, string mushroomFamily, string searchString)
+        public async Task<IActionResult> Database(
+                                                  string searchName, string searchFamily, string searchLocation, 
+                                                  string searchCapDiameter, string searchStemHeight, bool? searchEdible, 
+                                                  string searchEdibleDes, string searchCapDes, string searchStemDes, 
+                                                  string searchGillDes, string searchSporeDes, string searchMicroDes, 
+                                                  string searchNote
+                                                 )
         {
             if (_context.Mushroom == null)
             {
                 return Problem("Entity set 'MushroomContext.Mushroom' is null.");
             }
 
-            IQueryable<string> locationQuery = from m in _context.Mushroom orderby m.Location select m.Location;
-
             IQueryable<string> familyQuery = from m in _context.Mushroom orderby m.Family select m.Family;
+
 
             var mushrooms = from m in _context.Mushroom select m;
 
-            if (!string.IsNullOrEmpty(searchString))
+            #region LINQ Searches
+
+            if (!string.IsNullOrEmpty(searchName))
             {
-                mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchString.ToUpper()));
+                mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchName.ToUpper()));
             }
 
-            if (!string.IsNullOrEmpty(mushroomLocation))
+            if (!string.IsNullOrEmpty(searchFamily))
             {
-                mushrooms = mushrooms.Where(x => x.Location == mushroomLocation);
+                mushrooms = mushrooms.Where(x => x.Family == searchFamily);
             }
 
-            if (!string.IsNullOrEmpty(mushroomFamily))
+            if (!string.IsNullOrEmpty(searchLocation))
             {
-                mushrooms = mushrooms.Where(x => x.Family == mushroomFamily);
+                mushrooms = mushrooms.Where(x => x.Location!.ToUpper().Contains(searchLocation.ToUpper()));
             }
 
-            if (edible.HasValue)
+            if (!string.IsNullOrEmpty(searchCapDiameter))
             {
-                mushrooms = mushrooms.Where(x => x.Edible == edible);
+                mushrooms = mushrooms.Where(x => x.CapDiameter!.ToUpper().Contains(searchCapDiameter.ToUpper()));
             }
+
+            if (!string.IsNullOrEmpty(searchStemHeight))
+            {
+                mushrooms = mushrooms.Where(x => x.StemHeight!.ToUpper().Contains(searchStemHeight.ToUpper()));
+            }
+
+            if (searchEdible.HasValue)
+            {
+                mushrooms = mushrooms.Where(x => x.Edible == searchEdible);
+            }
+
+            if (!string.IsNullOrEmpty(searchCapDes))
+            {
+                mushrooms = mushrooms.Where(x => x.CapDescription!.ToUpper().Contains(searchCapDes.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(searchStemDes))
+            {
+                mushrooms = mushrooms.Where(x => x.StemDescription!.ToUpper().Contains(searchStemDes.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(searchGillDes))
+            {
+                mushrooms = mushrooms.Where(x => x.GillDescription!.ToUpper().Contains(searchGillDes.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(searchSporeDes))
+            {
+                mushrooms = mushrooms.Where(x => x.SporeDescription!.ToUpper().Contains(searchSporeDes.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(searchMicroDes))
+            {
+                mushrooms = mushrooms.Where(x => x.MicroscopicDescription!.ToUpper().Contains(searchMicroDes.ToUpper()));
+            }
+
+            if (!string.IsNullOrEmpty(searchNote))
+            {
+                mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
+            }
+            #endregion
 
             var mushroomEdibleVM = new MushroomViewModel
-            {
-                Locations = new SelectList(await locationQuery.Distinct().ToListAsync()),
+            { 
+                Locations = new SelectList(await _serviceRepository.populateLocations(), "Value", "Text"),
+                CapDiameters = new SelectList(await _serviceRepository.populateCapDiameters(), "Value", "Text"),
+                StemHeights = new SelectList(await _serviceRepository.populateStemHeights(), "Value", "Text"),
                 Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
                 Mushrooms = await mushrooms.ToListAsync()
             };
@@ -97,7 +152,7 @@ namespace CanIEatIt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Family,Location,CapDiameter,Height,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom)
+        public async Task<IActionResult> Create([Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom)
         {
             if (ModelState.IsValid)
             {
@@ -129,7 +184,7 @@ namespace CanIEatIt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Family,Location,CapDiameter,Height,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom)
         {
             if (id != mushroom.Id)
             {
