@@ -5,9 +5,20 @@
     ViewData["Title"] = "Mushrooms";
 }
 
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                collapsible: true
+            });
+        });
+
+    </script>
+}
+
 <h2>Mushroom Home Page</h2>
 
 <p>Add Mushroom Home Page Here </p>
 
 <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Database">Database</a>
-

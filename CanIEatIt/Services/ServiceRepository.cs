@@ -9,6 +9,8 @@ namespace CanIEatIt.Services
         Task<List<SelectListItem>> populateStemHeights();
 
         Task<List<SelectListItem>> populateLocations();
+
+        Task<List<SelectListItem>> populateEdible();
     }
     public class ServiceRepository : IServiceRepository
     {
@@ -18,12 +20,24 @@ namespace CanIEatIt.Services
             {
                 return new List<SelectListItem>()
                 {
-                    new SelectListItem() { Value = "0", Text = "Africa" },
-                    new SelectListItem() { Value = "1", Text = "Asia" },
-                    new SelectListItem() { Value = "2", Text = "Europe" },
-                    new SelectListItem() { Value = "3", Text = "North America" },
-                    new SelectListItem() { Value = "4", Text = "Oceania" },
-                    new SelectListItem() { Value = "5", Text = "South America" },
+                    new SelectListItem() { Value = "Africa", Text = "Africa" },
+                    new SelectListItem() { Value = "Asia", Text = "Asia" },
+                    new SelectListItem() { Value = "Europe", Text = "Europe" },
+                    new SelectListItem() { Value = "North America", Text = "North America" },
+                    new SelectListItem() { Value = "Oceania", Text = "Oceania" },
+                    new SelectListItem() { Value = "South America", Text = "South America" },
+                };
+            });
+        }
+
+        public Task<List<SelectListItem>> populateEdible()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                return new List<SelectListItem>()
+                {
+                    new SelectListItem() { Value = "0", Text = "Yes" },
+                    new SelectListItem() { Value = "1", Text = "No" },
                 };
             });
         }

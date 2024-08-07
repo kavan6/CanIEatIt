@@ -11,6 +11,8 @@ namespace CanIEatIt.Models
 
         public SelectList? Families { get; set; }
         public SelectList? Locations { get; set; }
+        public SelectList? Edibles { get; set; }
+
         //public SelectList? CapDiameters { get; set; }
         //public SelectList? StemHeights { get; set; }
 
@@ -20,7 +22,7 @@ namespace CanIEatIt.Models
         public string? SearchLocation { get; set; }
         public string? SearchCapDiameter { get; set; }
         public string? SearchStemHeight { get; set; }
-        public bool? SearchEdible { get; set; }
+        public string? SearchEdible { get; set; }
         public string? SearchEdibleDes { get; set; }
         public string? SearchCapDes { get; set; }
         public string? SearchStemDes { get; set; }
@@ -28,5 +30,7 @@ namespace CanIEatIt.Models
         public string? SearchSporeDes { get; set; }
         public string? SearchMicroDes { get; set; }
         public string? SearchNote { get; set; }
+        public string? SearchKeyWords { get; set; }
+
     }
 }

@@ -37,10 +37,10 @@ namespace CanIEatIt.Controllers
         // GET: Mushrooms
         public async Task<IActionResult> Database(
                                                   string searchName, string searchFamily, string searchLocation, 
-                                                  int? searchCapDiameter, int? searchStemHeight, bool? searchEdible, 
+                                                  int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
                                                   string searchEdibleDes, string searchCapDes, string searchStemDes, 
                                                   string searchGillDes, string searchSporeDes, string searchMicroDes, 
-                                                  string searchNote
+                                                  string searchNote, string searchKeyWords
                                                  )
         {
 
@@ -51,7 +51,6 @@ namespace CanIEatIt.Controllers
             }
 
             IQueryable<string> familyQuery = from m in _context.Mushroom orderby m.Family select m.Family;
-
 
             var mushrooms = from m in _context.Mushroom select m;
 
@@ -74,17 +73,27 @@ namespace CanIEatIt.Controllers
 
             if (searchCapDiameter.HasValue)
             {
-                mushrooms = mushrooms.Where(x => (x.AverageDiameter > searchCapDiameter - 2) && (x.AverageDiameter < searchCapDiameter + 2));
+                mushrooms = mushrooms.Where(x => ((searchCapDiameter >= x.LowerDiameter)&&(searchCapDiameter <= x.UpperDiameter)));
             }
 
             if (searchStemHeight.HasValue)
             {
-                mushrooms = mushrooms.Where(x => (x.AverageHeight > searchStemHeight - 2) && (x.AverageHeight < searchStemHeight + 2));
+                mushrooms = mushrooms.Where(x => ((searchStemHeight >= x.LowerHeight)&&(searchStemHeight <= x.UpperHeight)));
             }
 
-            if (searchEdible.HasValue)
+            if (!string.IsNullOrEmpty(searchEdible))
             {
-                mushrooms = mushrooms.Where(x => x.Edible == searchEdible);
+                switch (searchEdible)
+                {
+                    case "0":
+                        mushrooms = mushrooms.Where(x => x.Edible);
+                        break;
+                    case "1":
+                        mushrooms = mushrooms.Where(x => !x.Edible);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             if (!string.IsNullOrEmpty(searchCapDes))
@@ -116,14 +125,27 @@ namespace CanIEatIt.Controllers
             {
                 mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
             }
+
+            if(!string.IsNullOrEmpty(searchKeyWords))
+            {
+                mushrooms = mushrooms.Where(x => (
+                x.Location!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+                (x.EdibleDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+                (x.CapDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+                (x.StemDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+                (x.GillDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+                (x.SporeDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+                (x.MicroscopicDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+                (x.Note!.ToUpper().Contains(searchKeyWords.ToUpper()))
+                );
+            }
             #endregion
 
             var mushroomEdibleVM = new MushroomViewModel
             { 
                 Locations = new SelectList(await _serviceRepository.populateLocations(), "Value", "Text"),
-                //CapDiameters = new SelectList(await _serviceRepository.populateCapDiameters(), "Value", "Text"),
-                //StemHeights = new SelectList(await _serviceRepository.populateStemHeights(), "Value", "Text"),
                 Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
+                Edibles = new SelectList(await _serviceRepository.populateEdible(), "Value", "Text"),
                 Mushrooms = await mushrooms.ToListAsync()
             };
 
@@ -163,7 +185,7 @@ namespace CanIEatIt.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Set the average diameter and height for created mushroom from their respective ranges. Ranges come in the form of [0-9]-[0-9]cm.
+                // Set the upper and lower diameter and height for created mushroom from their respective ranges. Ranges come in the form of [0-9]-[0-9]cm.
 
                 string n1 = intMatcher.Match(regexFirstInteger.Match(mushroom.CapDiameter!).ToString()).ToString();
                 string n2 = intMatcher.Match(regexSecondInteger.Match(mushroom.CapDiameter!).ToString()).ToString();
@@ -171,7 +193,8 @@ namespace CanIEatIt.Controllers
                 int n1res = int.Parse(n1);
                 int n2res = int.Parse(n2);
 
-                mushroom.AverageDiameter = (n1res + n2res) / 2;
+                mushroom.LowerDiameter = n1res;
+                mushroom.UpperDiameter = n2res;
 
                 n1 = intMatcher.Match(regexFirstInteger.Match(mushroom.StemHeight!).ToString()).ToString();
                 n2 = intMatcher.Match(regexSecondInteger.Match(mushroom.StemHeight!).ToString()).ToString();
@@ -179,7 +202,8 @@ namespace CanIEatIt.Controllers
                 n1res = int.Parse(n1);
                 n2res = int.Parse(n2);
 
-                mushroom.AverageHeight = (n1res + n2res) / 2;
+                mushroom.LowerHeight = n1res;
+                mushroom.UpperHeight = n2res;
 
                 _context.Add(mushroom);
                 await _context.SaveChangesAsync();
@@ -228,7 +252,8 @@ namespace CanIEatIt.Controllers
                     int n1res = int.Parse(n1);
                     int n2res = int.Parse(n2);
 
-                    mushroom.AverageDiameter = (n1res + n2res) / 2;
+                    mushroom.LowerDiameter = n1res;
+                    mushroom.UpperDiameter = n2res;
 
                     n1 = intMatcher.Match(regexFirstInteger.Match(mushroom.StemHeight!).ToString()).ToString();
                     n2 = intMatcher.Match(regexSecondInteger.Match(mushroom.StemHeight!).ToString()).ToString();
@@ -236,7 +261,8 @@ namespace CanIEatIt.Controllers
                     n1res = int.Parse(n1);
                     n2res = int.Parse(n2);
 
-                    mushroom.AverageHeight = (n1res + n2res) / 2;
+                    mushroom.LowerHeight = n1res;
+                    mushroom.UpperHeight = n2res;
 
                     _context.Update(mushroom);
                     await _context.SaveChangesAsync();

@@ -20,16 +20,20 @@ namespace CanIEatIt.Models
         [Display(Name = "Cap Diameter (cm)")]
         public string? CapDiameter { get; set; }
         [HiddenInput]
-        public int? AverageDiameter { get; set; }
+        public int? LowerDiameter { get; set; }
+        [HiddenInput]
+        public int? UpperDiameter { get; set; }
 
         [RegularExpression(@"^[0-9]+-[0-9]+cm")]
         [Display(Name = "Stem Height (cm)")]
         public string? StemHeight { get; set; }
         [HiddenInput]
-        public int? AverageHeight { get; set; }
+        public int? LowerHeight { get; set; }
+        [HiddenInput]
+        public int? UpperHeight { get; set; }
 
         [Required]
-        public bool? Edible { get; set; }
+        public bool Edible { get; set; }
         [Display(Name = "Edible Description")]
         public string? EdibleDescription { get; set; }
         [Display(Name = "Cap Description")]

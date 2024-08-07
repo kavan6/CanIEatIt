@@ -6,47 +6,80 @@
     ViewData["Title"] = "Database";
 }
 
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#additional_filters").accordion({
+                collapsible: true
+            });
+        });
+
+    </script>
+}
+
+
 <h1>Mushroom Database</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
+
 <form asp-controller="Mushrooms" asp-action="Database" method="get">
     <p>
+
         Name: <input type="text" asp-for="SearchName" />
 
-        <select asp-for="SearchFamily" asp-items="Model.Families">
+        Location: <select asp-for="SearchLocation" asp-items="Model.Locations">
             <option value="">All</option>
         </select>
 
-        <select asp-for="SearchLocation" asp-items="Model.Locations">
+        Edible?: <select asp-for="SearchEdible" asp-items="Model.Edibles">
             <option value="">All</option>
         </select>
 
-        Cap Diameter (cm): <input type="text" asp-for="SearchCapDiameter" />
-        
-        Stem Height (cm): <input type="text" asp-for="SearchStemHeight" />
-
-        Edible: <input type="text" asp-for="SearchEdible"/>
-
-        Edible Keyword(s): <input type="text" asp-for="SearchEdibleDes" />
-
-        Cap Keyword(s): <input type="text" asp-for="SearchCapDes" />
-
-        Stem Keyword(s): <input type="text" asp-for="SearchStemDes" />
-
-        Gill Keyword(s): <input type="text" asp-for="SearchGillDes" />
-
-        Spore Keyword(s): <input type="text" asp-for="SearchSporeDes" />
-        
-        Microscopic Keyword(s): <input type="text" asp-for="SearchMicroDes" />
-
-        Note Keyword(s): <input type="text" asp-for="SearchNote" />
+        General Keyword(s): <input type="text" asp-for="SearchKeyWords" />
 
         <input type="submit" value="Filter" />
+
+        <div>
+            <div id="additional_filters">
+                <h3><a href="#">Additional Filters</a></h3>
+                <div>
+                    Family:
+                    <select asp-for="SearchFamily" asp-items="Model.Families">
+                        <option value="">All</option>
+                    </select>
+
+                    Cap Diameter (cm): <input type="text" asp-for="SearchCapDiameter" />
+
+                    Stem Height (cm): <input type="text" asp-for="SearchStemHeight" />
+
+                    Edible Keyword(s): <input type="text" asp-for="SearchEdibleDes" />
+
+                    Cap Keyword(s): <input type="text" asp-for="SearchCapDes" />
+
+                    Stem Keyword(s): <input type="text" asp-for="SearchStemDes" />
+
+                    Gill Keyword(s): <input type="text" asp-for="SearchGillDes" />
+
+                    Spore Keyword(s): <input type="text" asp-for="SearchSporeDes" />
+
+                    Microscopic Keyword(s): <input type="text" asp-for="SearchMicroDes" />
+
+                    Note Keyword(s): <input type="text" asp-for="SearchNote" />
+                </div>
+            </div>
+        </div>
+
     </p>
 </form>
+
+<div>
+    <span>
+    </span>
+</div>
 
 <table class="table">
     <thead>

@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CanIEatIt.Data;
 using CanIEatIt.Models;
 using CanIEatIt.Services;
+using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CanIEatItContext>(options =>
