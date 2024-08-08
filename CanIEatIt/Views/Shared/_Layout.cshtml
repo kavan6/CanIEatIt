@@ -4,13 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Can I Eat It?</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CanIEatIt.styles.css" asp-append-version="true" />
+@*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+ *@    <link rel="stylesheet" href="~/CanIEatIt.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/sass/stylesheet.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -18,26 +21,53 @@
 </head>
 
 
-
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-primary-subtle">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Can I Eat It?</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Main" asp-action="Index" id="main_logo">Can I Eat It?</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1" id="nav_bar_list">
 @*                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Index">Home</a>
                         </li> *@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-hover="dropdown" asp-area="" asp-controller="Mushrooms" asp-action="Index">Mushrooms</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Database">Mushrooms Database</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Picking">Mushroom Picking Guide</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="About">About Mushrooms</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-hover="dropdown" asp-area="" asp-controller="Plants" asp-action="Index">Plants</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Plants" asp-action="Database">Plants Database</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Plants" asp-action="Picking">Plant Picking Guide</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Plants" asp-action="About">About Plants</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Index">Mushrooms</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -54,7 +84,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Can I Eat It? - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <nav class="nav justify-content-center">
+                <a class="nav-link" accesskeyasp-area="" asp-controller="Mushrooms" asp-action="Index">Mushrooms</a>
+                <a class="nav-link" accesskeyasp-area="" asp-controller="Plants" asp-action="Index">Plants</a>
+                <a class="nav-link" accesskeyasp-area="" asp-controller="Main" asp-action="About">About</a>
+            </nav>
+            &copy; 2024 - Kavan Heppenstall - <a asp-area="" asp-controller="Main" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 </body>
