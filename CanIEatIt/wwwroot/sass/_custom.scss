@@ -1,8 +1,8 @@
 ﻿
 /* SET CUSTOM COLOURS */
 
-$purple-primary: #51007c;
-$lightpurple-secondary: #d3a6ff;
+$purple: #51007c;
+$lightpurple: #d3a6ff;
 
 /* WHITES & GRAYS */
 
@@ -36,5 +36,33 @@ $dark: $gray-900;*/
 
 /* MODIFY BOOTSTRAP COLOUR MAP */
 
-$primary: $lightpurple-secondary;
-$secondary: $lightpurple-secondary;
+$primary: $lightpurple;
+$secondary: $purple;
+
+/* ACCORDION OVERRIDES */
+
+$accordion-icon-color: $primary;
+$accordion-icon-active-color: $secondary;
+
+$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='#{$accordion-icon-color}' stroke-linecap='round' stroke-linejoin='round'><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4'/></svg>");
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='#{$accordion-icon-active-color}' stroke-linecap='round' stroke-linejoin='round'><path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708'/></svg>");
+
+
+/* INPUT OVERRIDES */
+
+$input-border-radius: var(--#{$prefix}border-radius);
+$input-border-radius-sm: var(--#{$prefix}border-radius-sm);
+$input-border-radius-lg: var(--#{$prefix}border-radius-lg);
+
+/* BUTTON OVERRIDES */
+
+$btn-border-radius: 2rem;
+
+/* BORDER OVERRIDES */
+
+$border-radius: .375rem;
+$border-radius-sm: .25rem;
+$border-radius-lg: .5rem;
+$border-radius-xl: 1rem;
+$border-radius-xxl: 2rem;
+$border-radius-pill: 50rem;

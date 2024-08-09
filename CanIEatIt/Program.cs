@@ -10,7 +10,7 @@ builder.Services.AddDbContext<CanIEatItContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CanIEatItContext") ?? throw new InvalidOperationException("Connection string 'CanIEatItContext' not found.")));
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 

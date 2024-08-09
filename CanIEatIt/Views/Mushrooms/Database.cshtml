@@ -8,15 +8,24 @@
 
 @section Scripts
 {
-@*     <script>
-        $(function () {
-            $("#additional_filters").accordion({
-                collapsible: true,
-                active: false
-            });
+    <script>
+        const keyWords = new Array();
+
+        window.addEventListener('keydown', function (e) {
+            if (e.keyCode == 32) {
+                myFunction();
+            }
         });
 
-    </script> *@
+        function myFunction() {
+            keyWords.push(document.getElementById("input-keywords").value)
+            document.getElementById("input-keywords").value = "";
+
+            alert(keyWords);
+        }
+
+    </script>
+
 }
 
 
@@ -30,27 +39,27 @@
 <form asp-controller="Mushrooms" asp-action="Database" method="get">
     <p>
 
-        Name: <input class="search-form-input" type="text" asp-for="SearchName" />
+        Name: <input class="input search-form-input" type="text" asp-for="SearchName" />
 
         Location: 
-        <select class="search-form-input" asp-for="SearchLocation" asp-items="Model.Locations">
+        <select class="input search-form-input" asp-for="SearchLocation" asp-items="Model.Locations">
             <option value="">All</option>
         </select>
 
         Edible?:
-        <select class="search-form-input" asp-for="SearchEdible" asp-items="Model.Edibles">
+        <select class="input search-form-input" asp-for="SearchEdible" asp-items="Model.Edibles">
             <option value="">All</option>
         </select>
 
-        General Keyword(s): <input class="search-form-input" type="text" asp-for="SearchKeyWords" />
+        General Keyword(s): <input class="input search-form-input" id="input-keywords" type="text" asp-for="SearchKeyWords"/>
 
-        <input class="search-form-submit" type="submit" value="Filter" />
+        <input class="btn btn-primary" type="submit" value="Search" />
 
         <div class="accordion accordion-flush" id="accordion-mfilters">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="accordion-mheading1">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-m1" aria-expanded="false" aria-controls="collapse-m1">
-                        Additional Filters
+                        Filters
                     </button>
                 </h2>
                 <div id="collapse-m1" class="accordion-collapse collapse" aria-labelledby="accordion-mheading1" data-bs-parent="accordion-mfilters">
@@ -60,23 +69,23 @@
                             <option value="">All</option>
                         </select>
 
-                        Cap Diameter (cm): <input class="search-form-input" type="text" asp-for="SearchCapDiameter" />
+                        Cap Diameter (cm): <input class="input search-form-input" type="text" asp-for="SearchCapDiameter" />
 
-                        Stem Height (cm): <input class="search-form-input" type="text" asp-for="SearchStemHeight" />
+                        Stem Height (cm): <input class="input search-form-input" type="text" asp-for="SearchStemHeight" />
 
-                        Edible Keyword(s): <input class="search-form-input" type="text" asp-for="SearchEdibleDes" />
+                        Edible Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchEdibleDes" />
 
-                        Cap Keyword(s): <input class="search-form-input" type="text" asp-for="SearchCapDes" />
+                        Cap Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchCapDes" />
 
-                        Stem Keyword(s): <input class="search-form-input" type="text" asp-for="SearchStemDes" />
+                        Stem Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchStemDes" />
 
-                        Gill Keyword(s): <input class="search-form-input" type="text" asp-for="SearchGillDes" />
+                        Gill Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchGillDes" />
 
-                        Spore Keyword(s): <input class="search-form-input" type="text" asp-for="SearchSporeDes" />
+                        Spore Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchSporeDes" />
 
-                        Microscopic Keyword(s): <input class="search-form-input" type="text" asp-for="SearchMicroDes" />
+                        Microscopic Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchMicroDes" />
 
-                        Note Keyword(s): <input class="search-form-input" type="text" asp-for="SearchNote" />
+                        Note Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchNote" />
                     </div>
                 </div>
             </div>
