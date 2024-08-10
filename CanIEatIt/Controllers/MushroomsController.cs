@@ -31,7 +31,19 @@ namespace CanIEatIt.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            IQueryable<string> familyQuery = from m in _context.Mushroom orderby m.Family select m.Family;
+
+            var mushrooms = from m in _context.Mushroom select m;
+
+            var mushroomEdibleVM = new MushroomViewModel
+            {
+                Locations = new SelectList(await _serviceRepository.populateLocations(), "Value", "Text"),
+                Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
+                Edibles = new SelectList(await _serviceRepository.populateEdible(), "Value", "Text"),
+                Mushrooms = await mushrooms.ToListAsync()
+            };
+
+            return View(mushroomEdibleVM);
         }
 
         // GET: Mushrooms
@@ -43,6 +55,11 @@ namespace CanIEatIt.Controllers
                                                   string searchNote, string searchKeyWords
                                                  )
         {
+
+            if(searchName == "Name...")
+            {
+                searchName = null;
+            }
 
 
             if (_context.Mushroom == null)
@@ -126,19 +143,19 @@ namespace CanIEatIt.Controllers
                 mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
             }
 
-            if(!string.IsNullOrEmpty(searchKeyWords))
-            {
-                mushrooms = mushrooms.Where(x => (
-                x.Location!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-                (x.EdibleDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-                (x.CapDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-                (x.StemDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-                (x.GillDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-                (x.SporeDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-                (x.MicroscopicDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-                (x.Note!.ToUpper().Contains(searchKeyWords.ToUpper()))
-                );
-            }
+            //if(!string.IsNullOrEmpty(searchKeyWords))
+            //{
+            //    mushrooms = mushrooms.Where(x => (
+            //    x.Location!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+            //    (x.EdibleDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+            //    (x.CapDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+            //    (x.StemDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+            //    (x.GillDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+            //    (x.SporeDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+            //    (x.MicroscopicDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
+            //    (x.Note!.ToUpper().Contains(searchKeyWords.ToUpper()))
+            //    );
+            //}
             #endregion
 
             var mushroomEdibleVM = new MushroomViewModel

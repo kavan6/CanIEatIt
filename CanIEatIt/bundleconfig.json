@@ -1,0 +1,23 @@
+[
+  {
+    "outputFileName": "wwwroot/js/_quickFunctions.min.js",
+    "inputFiles": [
+      "wwwroot/js/_quickFunctions.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/_site.min.js",
+    "inputFiles": [
+      "wwwroot/js/_site.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/app.js",
+    "inputFiles": [
+      "wwwroot/js/_createCards.js",
+      "wwwroot/js/_eventListeners.js",
+      "wwwroot/js/_quickFunctions.js",
+      "wwwroot/js/_site.js"
+    ]
+  }
+]

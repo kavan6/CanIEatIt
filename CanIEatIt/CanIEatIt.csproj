@@ -15,14 +15,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\js\_createCards.js" />
+    <Content Remove="wwwroot\js\_eventListeners.js" />
+    <Content Remove="wwwroot\js\_quickFunctions.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="bundleconfig.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\_createCards.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\_eventListeners.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\js\_createCards.js" />
+    <None Include="wwwroot\js\_eventListeners.js" />
+    <None Include="wwwroot\js\_quickFunctions.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />
     <PackageReference Include="jQuery" Version="3.7.1" />
     <PackageReference Include="jQuery.UI.Combined" Version="1.13.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.32" />

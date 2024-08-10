@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Can I Eat It?</title>
 @*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
- *@    <link rel="stylesheet" href="~/CanIEatIt.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CanIEatIt.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="~/sass/stylesheet.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/app.js" asp-append-version="true"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     @RenderSection("Scripts", required: false)
@@ -36,7 +36,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Index">Home</a>
                         </li> *@
                         <li class="nav-item dropdown">
-                            <a class="nav-link text-dark dropdown-toggle" data-hover="dropdown" asp-area="" asp-controller="Mushrooms" asp-action="Index">Mushrooms</a>
+                            <a class="nav-link text-dark dropdown-toggle" data-hover="dropdown" role="button" asp-area="" asp-controller="Mushrooms" asp-action="Index">Mushrooms</a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Database">Mushrooms Database</a>
@@ -92,7 +92,7 @@
     </header>
     
 
-    <div class="container">
+    <div class="container xxl">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

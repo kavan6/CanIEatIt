@@ -19,6 +19,11 @@ ul, li {
   list-style: none;
 }
 
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+}
 .navbar-nav {
   font-family: "Outfit";
   font-size: 16px;
@@ -46,14 +51,6 @@ body {
   margin-bottom: 60px;
 }
 
-.search-form-input {
-  border-radius: 10px;
-}
-
-#accordion-mfilters {
-  border-radius: 10px;
-}
-
 /* SET CUSTOM COLOURS */
 /* WHITES & GRAYS */
 /* THEME COLOURS!!! */
@@ -70,6 +67,68 @@ $dark: $gray-900;*/
 /* INPUT OVERRIDES */
 /* BUTTON OVERRIDES */
 /* BORDER OVERRIDES */
+/* CARD OVERRIDES */
+/* CONTAINER OVERRIDES */
+.search-form-input {
+  border-radius: 2rem;
+  border: 2px solid #000000;
+  min-height: 2rem;
+  font-size: 16px;
+  font-family: "Outfit";
+}
+
+.search-form-select {
+  border-radius: 2rem;
+  border: 2px solid #000000;
+  min-height: 2rem;
+  font-size: 16px;
+  font-family: "Outfit";
+}
+
+.search-form-select option {
+  font-size: 16px;
+  font-family: "Outfit";
+}
+
+.keywords-filter {
+  border: 2px solid #000000;
+  border-radius: 2rem;
+  max-width: 15rem;
+}
+
+.keywords-filter > input {
+  border: 0px;
+  outline: none;
+  padding-left: 0.2rem;
+}
+
+.keyword-label {
+  margin: 2px;
+  padding: 2px 24px 2px 8px;
+  float: left;
+  display: flex;
+  background-color: rgb(204, 204, 204);
+  color: rgb(51, 51, 51);
+  border-radius: 3px;
+  position: relative;
+}
+
+.keyword-label > .fa {
+  font-size: 16px;
+  margin-left: 12px;
+  position: absolute;
+  right: 5px;
+  top: 1px;
+}
+
+.keyword-label > .fa:hover {
+  cursor: pointer;
+}
+
+#accordion-mfilters {
+  border-radius: 10px;
+}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -836,7 +895,7 @@ progress {
 }
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
+    max-width: 1440px;
   }
 }
 :root {
@@ -2188,7 +2247,7 @@ progress {
   background-color: var(--bs-body-bg);
   background-clip: padding-box;
   border: var(--bs-border-width) solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
+  border-radius: 2rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2272,7 +2331,7 @@ progress {
   min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
-  border-radius: var(--bs-border-radius-sm);
+  border-radius: 2rem;
 }
 .form-control-sm::file-selector-button {
   padding: 0.25rem 0.5rem;
@@ -2284,7 +2343,7 @@ progress {
   min-height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2));
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
-  border-radius: var(--bs-border-radius-lg);
+  border-radius: 2rem;
 }
 .form-control-lg::file-selector-button {
   padding: 0.5rem 1rem;
@@ -2312,11 +2371,11 @@ textarea.form-control-lg {
 }
 .form-control-color::-moz-color-swatch {
   border: 0 !important;
-  border-radius: var(--bs-border-radius);
+  border-radius: 2rem;
 }
 .form-control-color::-webkit-color-swatch {
   border: 0 !important;
-  border-radius: var(--bs-border-radius);
+  border-radius: 2rem;
 }
 .form-control-color.form-control-sm {
   height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
@@ -2341,7 +2400,7 @@ textarea.form-control-lg {
   background-position: right 0.75rem center;
   background-size: 16px 12px;
   border: var(--bs-border-width) solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
+  border-radius: 2rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2371,7 +2430,7 @@ textarea.form-control-lg {
   padding-bottom: 0.25rem;
   padding-left: 0.5rem;
   font-size: 0.875rem;
-  border-radius: var(--bs-border-radius-sm);
+  border-radius: 2rem;
 }
 
 .form-select-lg {
@@ -2379,7 +2438,7 @@ textarea.form-control-lg {
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   font-size: 1.25rem;
-  border-radius: var(--bs-border-radius-lg);
+  border-radius: 2rem;
 }
 
 [data-bs-theme=dark] .form-select {
@@ -2669,7 +2728,7 @@ textarea.form-control-lg {
   height: 1.5em;
   content: "";
   background-color: var(--bs-body-bg);
-  border-radius: var(--bs-border-radius);
+  border-radius: 2rem;
 }
 .form-floating > .form-control:-webkit-autofill ~ label {
   color: rgba(var(--bs-body-color-rgb), 0.65);
@@ -2727,7 +2786,7 @@ textarea.form-control-lg {
   white-space: nowrap;
   background-color: var(--bs-tertiary-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
+  border-radius: 2rem;
 }
 
 .input-group-lg > .form-control,
@@ -2736,7 +2795,7 @@ textarea.form-control-lg {
 .input-group-lg > .btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
-  border-radius: var(--bs-border-radius-lg);
+  border-radius: 2rem;
 }
 
 .input-group-sm > .form-control,
@@ -2745,7 +2804,7 @@ textarea.form-control-lg {
 .input-group-sm > .btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
-  border-radius: var(--bs-border-radius-sm);
+  border-radius: 2rem;
 }
 
 .input-group-lg > .form-select,
@@ -4556,7 +4615,7 @@ textarea.form-control-lg {
   --bs-accordion-border-width: var(--bs-border-width);
   --bs-accordion-border-radius: var(--bs-border-radius);
   --bs-accordion-inner-border-radius: calc(var(--bs-border-radius) - (var(--bs-border-width)));
-  --bs-accordion-btn-padding-x: 1.25rem;
+  --bs-accordion-btn-padding-x: 0rem;
   --bs-accordion-btn-padding-y: 1rem;
   --bs-accordion-btn-color: var(--bs-body-color);
   --bs-accordion-btn-bg: var(--bs-accordion-bg);
@@ -4566,7 +4625,7 @@ textarea.form-control-lg {
   --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
   --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2351007c' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708'/%3e%3c/svg%3e");
   --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(211, 166, 255, 0.25);
-  --bs-accordion-body-padding-x: 1.25rem;
+  --bs-accordion-body-padding-x: 0rem;
   --bs-accordion-body-padding-y: 1rem;
   --bs-accordion-active-color: var(--bs-primary-text-emphasis);
   --bs-accordion-active-bg: var(--bs-primary-bg-subtle);

@@ -1,0 +1,41 @@
+﻿
+
+function createLabel(e) {
+
+    if (e.value == ' ') {
+        e.value = '';
+        return null;
+    }
+
+    e.parentNode.insertBefore(createLabelItem(e.value), e);
+    e.value = '';
+
+    function createLabelItem(text) {
+        const item = document.createElement("div");
+        item.setAttribute("class", "keyword-label");
+        const span = `<span>${text}</span>`;
+        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+</svg></div>`;
+        item.innerHTML = span + close;
+        return item;
+    }
+}
+
+function temp() {
+
+}
+
+function wipeInputBox(e) {
+    if (e.value == "Keywords..." || e.value == "Name...") {
+        e.value = "";
+    }
+}
+
+function fillInputBox(e) {
+    if ((e == document.getElementById("input-keywords")) && ("" == document.getElementById("input-keywords").value)) {
+        e.value = "Keywords...";
+    } else if (e == document.getElementById("input-name") && ("" == document.getElementById("input-name").value)) {
+        e.value = "Name...";
+    }
+}

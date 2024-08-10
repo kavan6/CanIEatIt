@@ -1,5 +1,61 @@
 ﻿.search-form-input {
-    
+    border-radius: 2rem;
+    border: 2px solid #000000;
+    min-height: 2rem;
+    font-size: 16px;
+    font-family: 'Outfit';
+}
+
+.search-form-select {
+    border-radius: 2rem;
+    border: 2px solid #000000;
+    min-height: 2rem;
+    font-size: 16px;
+    font-family: 'Outfit';
+}
+
+.search-form-select option {
+    font-size: 16px;
+    font-family: 'Outfit';
+}
+
+.keywords-filter {
+    border: 2px solid #000000;
+    border-radius: 2rem;
+    max-width: 15rem;
+}
+
+.keywords-filter > input {
+    border: 0px;
+    outline: none;
+    padding-left: 0.2rem;
+}
+
+.keyword-label {
+    margin: 2px;
+    padding: 2px 24px 2px 8px;
+    float: left;
+    display: flex;
+    background-color: rgb(204, 204, 204);
+    color: rgb(51, 51, 51);
+    border-radius: 3px;
+    position: relative;
+}
+
+.keyword-label > span {
+
+}
+
+.keyword-label > .fa {
+    font-size: 16px;
+    margin-left: 12px;
+    position: absolute;
+    right: 5px;
+    top: 1px;
+}
+
+.keyword-label > .fa:hover {
+    cursor: pointer;
 }
 
 #accordion-mfilters {

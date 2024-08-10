@@ -1,6 +1,6 @@
 ﻿@model CanIEatIt.Models.MushroomViewModel
 @using CanIEatIt.Services
-@inject IServiceRepository _serviceRepo
+
 
 @{
     ViewData["Title"] = "Mushroom Database";
@@ -8,21 +8,66 @@
 
 @section Scripts
 {
-    <script>
-        const keyWords = new Array();
+    <script type="text/javascript">
 
-        window.addEventListener('keydown', function (e) {
-            if (e.keyCode == 32) {
-                myFunction();
+        const cardsLoaded = false;
+
+        (function (window, document, undefined) {
+
+            window.onload = init;
+
+            function init() {
+                if (!cardsLoaded) {
+                    initCards();
+                }
             }
-        });
 
-        function myFunction() {
-            keyWords.push(document.getElementById("input-keywords").value)
-            document.getElementById("input-keywords").value = "";
+        })(window, document, undefined);
 
-            alert(keyWords);
+        function initCards() {
+            var obj = @Html.Raw(Json.Serialize(Model.Mushrooms));
+
+
+            for (let i = 0; i < obj.length; i++) {
+
+                var slot = (i % 3) + 1;
+
+                CreateCard(obj[i], slot);
+            }
+
+
+            function CreateCard(mushroom, slot) {
+                const card = document.createElement("div");
+                card.setAttribute("class", "card text-white bg-primary mt-3");
+
+                const header = document.createElement("div");
+                header.setAttribute("class", "card-header");
+                header.innerText = mushroom.name;
+
+                const body = document.createElement("div");
+                body.setAttribute("class", "card-body  d-flex flex-column");
+
+                const title = document.createElement("h5");
+                title.setAttribute("class", "card-title");
+                title.innerText = mushroom.family;
+
+                const text = document.createElement("p");
+                text.setAttribute("class", "card-text mb-4");
+                text.innerText = mushroom.edibleDescription;
+
+                body.appendChild(title);
+                body.appendChild(text);
+
+                card.appendChild(header);
+                card.appendChild(body);
+
+                const slotId = "mushroom-slot-" + slot;
+
+                document.getElementById(slotId).appendChild(card);
+            }
+
         }
+
 
     </script>
 
@@ -31,168 +76,106 @@
 
 <h1>Mushroom Database</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
 
 <form asp-controller="Mushrooms" asp-action="Database" method="get">
-    <p>
+    <div class="container">
+        <div class="row mt-3 mb-3">
 
-        Name: <input class="input search-form-input" type="text" asp-for="SearchName" />
+            <div class="col mt-auto">
+                <input class="input search-form-input bottom" id="input-name" value="Name..." type="text" asp-for="SearchName" />
 
-        Location: 
-        <select class="input search-form-input" asp-for="SearchLocation" asp-items="Model.Locations">
-            <option value="">All</option>
-        </select>
+            </div>
 
-        Edible?:
-        <select class="input search-form-input" asp-for="SearchEdible" asp-items="Model.Edibles">
-            <option value="">All</option>
-        </select>
+            <div class="col mt-auto">
+                Location:
+                <select class="input search-form-select bottom" asp-for="SearchLocation" asp-items="Model.Locations">
+                    <option value="">All</option>
+                </select>
+            </div>
 
-        General Keyword(s): <input class="input search-form-input" id="input-keywords" type="text" asp-for="SearchKeyWords"/>
 
-        <input class="btn btn-primary" type="submit" value="Search" />
+            <div class="col mt-auto">
+                Edible?:
+                <select class="input search-form-select bottom" asp-for="SearchEdible" asp-items="Model.Edibles">
+                    <option value="">All</option>
+                </select>
+            </div>
 
-        <div class="accordion accordion-flush" id="accordion-mfilters">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="accordion-mheading1">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-m1" aria-expanded="false" aria-controls="collapse-m1">
-                        Filters
-                    </button>
-                </h2>
-                <div id="collapse-m1" class="accordion-collapse collapse" aria-labelledby="accordion-mheading1" data-bs-parent="accordion-mfilters">
-                    <div class="accordion-body">
-                        Family:
-                        <select class="search-form-input" asp-for="SearchFamily" asp-items="Model.Families">
-                            <option value="">All</option>
-                        </select>
 
-                        Cap Diameter (cm): <input class="input search-form-input" type="text" asp-for="SearchCapDiameter" />
-
-                        Stem Height (cm): <input class="input search-form-input" type="text" asp-for="SearchStemHeight" />
-
-                        Edible Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchEdibleDes" />
-
-                        Cap Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchCapDes" />
-
-                        Stem Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchStemDes" />
-
-                        Gill Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchGillDes" />
-
-                        Spore Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchSporeDes" />
-
-                        Microscopic Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchMicroDes" />
-
-                        Note Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchNote" />
-                    </div>
+            <div class="col mt-auto">
+                <div class="search-form-input keywords-filter bottom" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
+                    <input class="input search-form-input" id="input-keywords" value="Keywords..." type="text" asp-for="SearchKeyWords" onclick="wipeInputBox(this);" />
                 </div>
             </div>
+
+            <div class="col mt-auto">
+                <input class="btn btn-primary" type="submit" value="Search" onclick="UpdateCards()" />
+            </div>
+
+            <div class="col mt-auto">
+                <button class="btn btn-primary" asp-action="Create"> Create New </button>
+            </div>
+
         </div>
 
-    </p>
+    </div>
+
+    <div class="container-fluid">
+
+                <div class="row mt-3">
+                    <div class="col-sm-2 mb-3">
+                        <div class="accordion accordion-flush" id="accordion-mfilters">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accordion-mheading1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-m1" aria-expanded="false" aria-controls="collapse-m1">
+                                        Filters
+                                    </button>
+                                </h2>
+                                <div id="collapse-m1" class="accordion-collapse collapse" aria-labelledby="accordion-mheading1" data-bs-parent="accordion-mfilters">
+                                    <div class="accordion-body">
+                                        Family:
+                                        <select class="search-form-input" asp-for="SearchFamily" asp-items="Model.Families">
+                                            <option value="">All</option>
+                                        </select>
+
+                                        Cap Diameter (cm): <input class="input search-form-input" type="text" asp-for="SearchCapDiameter" />
+
+                                        Stem Height (cm): <input class="input search-form-input" type="text" asp-for="SearchStemHeight" />
+
+                                        Edible Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchEdibleDes" />
+
+                                        Cap Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchCapDes" />
+
+                                        Stem Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchStemDes" />
+
+                                        Gill Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchGillDes" />
+
+                                        Spore Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchSporeDes" />
+
+                                        Microscopic Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchMicroDes" />
+
+                                        Note Keyword(s): <input class="input search-form-input" type="text" asp-for="SearchNote" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 mb-3" id="mushroom-slot-1">
+
+                    </div>
+                    <div class="col-lg-3 mb-3" id="mushroom-slot-2">
+
+                    </div>
+                    <div class="col-lg-3 mb-3" id="mushroom-slot-3">
+
+                    </div>
+                </div>
+
+    </div>
 </form>
 
 <div>
     <span>
     </span>
 </div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].Family)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].CapDiameter)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].StemHeight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].Edible)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].EdibleDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].CapDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].StemDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].GillDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].SporeDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].MicroscopicDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mushrooms![0].Note)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Mushrooms!)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Family)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CapDiameter)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StemHeight)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Edible)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EdibleDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CapDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StemDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GillDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SporeDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MicroscopicDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
