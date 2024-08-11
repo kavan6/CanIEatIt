@@ -37,8 +37,13 @@
 
 
             function CreateCard(mushroom, slot) {
+                const link = document.createElement("a");
+                link.setAttribute("href", "#");
+                link.setAttribute("style", "text-decoration:none");
+
                 const card = document.createElement("div");
-                card.setAttribute("class", "card text-white bg-primary mt-3");
+                card.setAttribute("class", "card display-card text-white bg-primary mt-3");
+
 
                 const header = document.createElement("div");
                 header.setAttribute("class", "card-header");
@@ -47,23 +52,80 @@
                 const body = document.createElement("div");
                 body.setAttribute("class", "card-body  d-flex flex-column");
 
-                const title = document.createElement("h5");
-                title.setAttribute("class", "card-title");
-                title.innerText = mushroom.family;
+                // BUILD FAMILY
+
+                const familyRow = document.createElement("div");
+                familyRow.setAttribute("class", "row no-gutters mb-0");
+
+                const familyCol1 = document.createElement("div");
+                familyCol1.setAttribute("class", "col-sm-4");
+
+                const familyCol2 = document.createElement("div");
+                familyCol2.setAttribute("class", "col nopadding text-justify");
+
+                const familyName = document.createElement("b");
+                familyName.setAttribute("class", "strong");
+                familyName.innerText = "Family: ";
+
+                const familyDes = document.createElement("p");
+                familyDes.setAttribute("class", "");
+                familyDes.innerText = mushroom.family;
+
+                familyCol1.appendChild(familyName);
+
+                familyCol2.appendChild(familyDes);
+
+                familyRow.appendChild(familyCol1);
+                familyRow.appendChild(familyCol2);
+
+                // BUILD LOCATION
+
+                const locationRow = document.createElement("div");
+                locationRow.setAttribute("class", "row no-gutters mb-0");
+
+                const locationCol1 = document.createElement("div");
+                locationCol1.setAttribute("class", "col-sm-4");
+
+                const locationCol2 = document.createElement("div");
+                locationCol2.setAttribute("class", "col nopadding text-justify");
+
+                const locationName = document.createElement("b");
+                locationName.setAttribute("class", "strong");
+                locationName.innerText = "Location: ";
+
+                const locationDes = document.createElement("p");
+                locationDes.setAttribute("class", "");
+                locationDes.innerText = mushroom.location;
+
+                locationCol1.appendChild(locationName);
+
+                locationCol2.appendChild(locationDes);
+
+                locationRow.appendChild(locationCol1);
+                locationRow.appendChild(locationCol2);
+
+                // BUILD EDIBLE
+
 
                 const text = document.createElement("p");
-                text.setAttribute("class", "card-text mb-4");
-                text.innerText = mushroom.edibleDescription;
+                text.setAttribute("class", "card-text");
+                text.innerText = "" + mushroom.edibleDescription;
 
-                body.appendChild(title);
+
+                body.appendChild(familyRow);
+
+                body.appendChild(locationRow);
+
                 body.appendChild(text);
 
                 card.appendChild(header);
                 card.appendChild(body);
 
+                link.appendChild(card);
+
                 const slotId = "mushroom-slot-" + slot;
 
-                document.getElementById(slotId).appendChild(card);
+                document.getElementById(slotId).appendChild(link);
             }
 
         }
@@ -72,9 +134,6 @@
     </script>
 
 }
-
-
-<h1>Mushroom Database</h1>
 
 
 <form asp-controller="Mushrooms" asp-action="Database" method="get">
@@ -124,7 +183,7 @@
 
                 <div class="row mt-3">
                     <div class="col-sm-2 mb-3">
-                        <div class="accordion accordion-flush" id="accordion-mfilters">
+                        <div class="accordion accordion-flush filter-accordion mt-3" id="accordion-mfilters">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="accordion-mheading1">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-m1" aria-expanded="false" aria-controls="collapse-m1">

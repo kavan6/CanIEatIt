@@ -128,7 +128,7 @@
   > .accordion-item {
     border-right: 0;
     border-left: 0;
-    @include border-radius(0);
+    @include border-radius(10px);
 
     &:first-child { border-top: 0; }
     &:last-child { border-bottom: 0; }
@@ -137,13 +137,13 @@
     > .accordion-header .accordion-button {
       &,
       &.collapsed {
-        @include border-radius(0);
+        @include border-radius(10px);
       }
     }
     // stylelint-enable selector-max-class
 
     > .accordion-collapse {
-      @include border-radius(0);
+      @include border-radius(10px);
     }
   }
 }

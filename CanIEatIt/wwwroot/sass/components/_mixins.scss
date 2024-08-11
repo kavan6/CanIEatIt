@@ -1,0 +1,5 @@
+﻿@use "../_custom.scss" as *;
+
+@mixin body_gradient {
+    background: linear-gradient(to right, rgba(#ead5ff, 0.95), rgba(#feffdd, 0.95));
+}

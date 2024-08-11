@@ -1,28 +1,9 @@
-﻿.search-form-input {
-    border-radius: 2rem;
-    border: 2px solid #000000;
-    min-height: 2rem;
-    font-size: 16px;
-    font-family: 'Outfit';
-}
-
-.search-form-select {
-    border-radius: 2rem;
-    border: 2px solid #000000;
-    min-height: 2rem;
-    font-size: 16px;
-    font-family: 'Outfit';
-}
-
-.search-form-select option {
-    font-size: 16px;
-    font-family: 'Outfit';
-}
+﻿/* KEYWORD FILTER */
 
 .keywords-filter {
     border: 2px solid #000000;
     border-radius: 2rem;
-    max-width: 15rem;
+    max-width: 13.9rem;
 }
 
 .keywords-filter > input {
@@ -30,6 +11,8 @@
     outline: none;
     padding-left: 0.2rem;
 }
+
+/* KEYWORD FILTER LABEL */
 
 .keyword-label {
     margin: 2px;
@@ -43,7 +26,6 @@
 }
 
 .keyword-label > span {
-
 }
 
 .keyword-label > .fa {
@@ -58,6 +40,28 @@
     cursor: pointer;
 }
 
-#accordion-mfilters {
-    border-radius: 10px;
+/* FORM SELECT */
+
+.search-form-select {
+    border-radius: 2rem;
+    border: 2px solid #000000;
+    min-height: 2rem;
+    font-size: 16px;
+    font-family: 'Outfit';
 }
+
+.search-form-select option {
+    font-size: 16px;
+    font-family: 'Outfit';
+}
+
+/* FORM INPUT */
+
+.search-form-input {
+    border-radius: 2rem;
+    border: 2px solid #000000;
+    min-height: 2rem;
+    font-size: 16px;
+    font-family: 'Outfit';
+}
+

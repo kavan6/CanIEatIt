@@ -1,15 +1,25 @@
-﻿header {
-
-}
+﻿@use "../_custom.scss" as *;
 
 .navbar-nav {
     font-family: 'Outfit';
     font-size: 16px;
 }
 
-#main_logo {
-    font-family: 'Outfit';
-    font-size: 32px;
+.main_logo {
+    padding-bottom: 0.5rem;
+}
+
+.menu {
+    background-color: $primary;
+
+    li {
+        padding: 0 0.7rem;
+
+        a {
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+    }
 }
 
 /* desktop view */

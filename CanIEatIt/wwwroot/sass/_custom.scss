@@ -1,8 +1,8 @@
 ﻿
 /* SET CUSTOM COLOURS */
 
-$purple: #51007c;
-$lightpurple: #d3a6ff;
+$purple: #ead5ff;
+$lightpurple: #c081ff;
 
 /* WHITES & GRAYS */
 
@@ -33,6 +33,7 @@ $light: $gray-100;
 $dark: $gray-900;*/
 // scss-docs-end theme-color-variables
 
+$border-radius: 10px;
 
 /* MODIFY BOOTSTRAP COLOUR MAP */
 
@@ -52,6 +53,11 @@ $accordion-padding-x: 0rem;
 
 $accordion-body-padding-y: $accordion-padding-y;
 $accordion-body-padding-x: $accordion-padding-x;
+
+$accordion-border-width: 2px;
+
+$accordion-border-radius: 5%;
+$accordion-inner-border-radius: 3px;
 
 
 /* INPUT OVERRIDES */

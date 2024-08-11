@@ -1,11 +1,27 @@
-﻿@import "_typography.scss";
-@import "_site.scss";
-@import "_header.scss";
-@import "_body.scss";
-@import "_footer.scss";
+﻿
+/* IMPORT COMPONENTS */
+
+@import "components/_typography.scss";
+@import "components/_mixins.scss";
+@import "components/_forms.scss";
+@import "components/_animations.scss";
+@import "components/_accordions.scss";
+
+/* IMPORT SECTIONS */
+
+@import "sections/_body.scss";
+@import "sections/_footer.scss";
+@import "sections/_header.scss";
+@import "sections/_nav.scss";
+
+/* PAGES */
+
+@import "sections/pages/_databaseView.scss";
+
+
+/* IMPORT OTHER */
+
 @import "_custom.scss";
-
-@import "_databaseView.scss";
-
+@import "_site.scss";
 @import "../modules/bootstrap/scss/bootstrap";
 

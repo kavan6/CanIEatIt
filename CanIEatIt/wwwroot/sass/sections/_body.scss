@@ -1,0 +1,15 @@
+﻿@use "../_custom.scss" as *;
+@use "../components/_mixins.scss" as *;
+
+body {
+    margin-bottom: 60px;
+}
+
+.span-div {
+    min-height: 500px;
+}
+
+#main-body {
+    @include body_gradient;
+
+}

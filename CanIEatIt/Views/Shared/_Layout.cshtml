@@ -21,11 +21,13 @@
 </head>
 
 
-<body>
+<body id="main-body">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-primary-subtle">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom shadow mb-3 menu">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Main" asp-action="Index" id="main_logo">Can I Eat It?</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Main" asp-action="Index">
+                    <img class="main-logo" src="~/images/icon.png" alt="logo image" />
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -96,6 +98,9 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+    </div>
+    <div class="span-div">
+
     </div>
 
     <footer class="border-top footer text-muted">

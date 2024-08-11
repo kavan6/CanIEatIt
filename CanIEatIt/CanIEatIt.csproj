@@ -52,6 +52,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\modules\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
