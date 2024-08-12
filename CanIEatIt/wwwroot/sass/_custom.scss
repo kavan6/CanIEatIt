@@ -3,6 +3,12 @@
 
 $purple: #ead5ff;
 $lightpurple: #c081ff;
+$purple2: #f795ff;
+$grey-purple: #dcb8e1;
+$green: green;
+$cyan: cyan;
+$yellow: yellow;
+$red: red;
 
 /* WHITES & GRAYS */
 
@@ -22,23 +28,22 @@ $black: #000;
 
 /* THEME COLOURS!!! */
 
-// scss-docs-start theme-color-variables
-/*$primary: $blue;
-$secondary: $gray-600;
-$success: $green;
-$info: $cyan;
-$warning: $yellow;
-$danger: $red;
-$light: $gray-100;
-$dark: $gray-900;*/
-// scss-docs-end theme-color-variables
-
 $border-radius: 10px;
 
 /* MODIFY BOOTSTRAP COLOUR MAP */
 
 $primary: $lightpurple;
 $secondary: $purple;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-900;
+
+$display-card-colour1: $purple2;
+$display-card-colour2: $grey-purple;
+
 
 /* ACCORDION OVERRIDES */
 
@@ -86,3 +91,6 @@ $card-height: null;
 /* CONTAINER OVERRIDES */
 
 $container-max-widths: ( sm: 540px, md: 720px, lg: 960px, xl: 1140px, xxl: 1440px );
+
+/* GUTTERS */
+

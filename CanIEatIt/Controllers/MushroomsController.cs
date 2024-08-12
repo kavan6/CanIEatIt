@@ -169,6 +169,24 @@ namespace CanIEatIt.Controllers
             return View(mushroomEdibleVM);
         }
 
+        // GET: Mushrooms/Information/ID
+        public async Task<IActionResult> Information(int? id)
+        {
+            if (id == null || _context.Mushroom == null)
+            {
+                return NotFound();
+            }
+
+            var mushroom = await _context.Mushroom
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (mushroom == null)
+            {
+                return NotFound();
+            }
+
+            return View(mushroom);
+        }
+
         // GET: Mushrooms/Details/5
         public async Task<IActionResult> Details(int? id)
         {

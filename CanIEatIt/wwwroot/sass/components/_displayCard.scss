@@ -1,14 +1,7 @@
-﻿@use "../../components/_mixins.scss" as *;
-
-
-.nopadding {
-    padding: 0 !important;
-    margin: 0 !important;
-}
+﻿/* DISPLAY CARD */
 
 .display-card {
     @include card-gradient;
-
     font-family: "Outfit";
     font-size: 14px;
 }
@@ -24,14 +17,4 @@
 .card-image {
     min-width: 256px;
     min-height: 256px;
-}
-
-.badge-danger {
-    color: white;
-    background: red;
-}
-
-.badge-success {
-    color: white;
-    background: green;
 }

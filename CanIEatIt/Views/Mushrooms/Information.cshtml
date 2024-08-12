@@ -1,0 +1,120 @@
+﻿@model CanIEatIt.Models.Mushroom
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+
+<div class="container-xxl">
+    <div class="row mt-3">
+        <div class="col-sm-2">
+            <a class="btn btn-primary text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Database">Back</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row g-0 mt-3">
+                <div class="col">
+                    <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="row">
+                        <h4>@Html.DisplayFor(model => model.Name)</h4>
+                    </div>
+                    <div class="row mt-1">
+                        <h5>@Html.DisplayFor(model => model.Family)</h5>
+                    </div>
+                    <div class="row mt-3">
+                        <p>
+                            <b>Location: </b>
+                            @Html.DisplayFor(model => model.Location)
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Dimensions: </b>
+                            Cap @Html.DisplayFor(model => model.CapDiameter) diameter,  Stem @Html.DisplayFor(model => model.StemHeight) tall
+                        </p>
+                    </div>
+                    <div class="row">
+                        @if (Model.Edible == true)
+                        {
+                            <p>
+                                <b> Edible: </b> Yes
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                <b> Edible: </b> No
+                            </p>
+                        }
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Edibility: </b>
+                            @Html.DisplayFor(model => model.EdibleDescription)
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Cap: </b>
+                            @Html.DisplayFor(model => model.CapDescription)
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Stem: </b>
+                            @Html.DisplayFor(model => model.StemDescription)
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Gills: </b>
+                            @Html.DisplayFor(model => model.GillDescription)
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Spores: </b>
+                            @Html.DisplayFor(model => model.SporeDescription)
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Spore Print: </b>
+                            @Html.DisplayFor(model => model.MicroscopicDescription)
+                        </p>
+                    </div>
+                    <div class="row">
+                        <p>
+                            <b> Note: </b>
+                            @Html.DisplayFor(model => model.Note)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

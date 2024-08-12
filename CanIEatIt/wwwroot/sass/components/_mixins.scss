@@ -3,3 +3,11 @@
 @mixin body_gradient {
     background: linear-gradient(to right, rgba(#ead5ff, 0.95), rgba(#feffdd, 0.95));
 }
+
+@mixin card-gradient {
+    background: linear-gradient(to right, rgba($primary,0.95), rgba($display-card-colour2,0.95));
+}
+
+@mixin card-gradient-active {
+    background: linear-gradient(to right, rgba($primary,0.95), rgba($secondary,0.95));
+}

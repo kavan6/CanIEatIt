@@ -10,125 +10,10 @@
 {
     <script type="text/javascript">
 
-        const cardsLoaded = false;
-
         (function (window, document, undefined) {
 
-            window.onload = init;
-
-            function init() {
-                if (!cardsLoaded) {
-                    initCards();
-                }
-            }
 
         })(window, document, undefined);
-
-        function initCards() {
-            var obj = @Html.Raw(Json.Serialize(Model.Mushrooms));
-
-
-            for (let i = 0; i < obj.length; i++) {
-
-                var slot = (i % 3) + 1;
-
-                CreateCard(obj[i], slot);
-            }
-
-
-            function CreateCard(mushroom, slot) {
-                const link = document.createElement("a");
-                link.setAttribute("href", "#");
-                link.setAttribute("style", "text-decoration:none");
-
-                const card = document.createElement("div");
-                card.setAttribute("class", "card display-card text-white bg-primary mt-3");
-
-
-                const header = document.createElement("div");
-                header.setAttribute("class", "card-header");
-                header.innerText = mushroom.name;
-
-                const body = document.createElement("div");
-                body.setAttribute("class", "card-body  d-flex flex-column");
-
-                // BUILD FAMILY
-
-                const familyRow = document.createElement("div");
-                familyRow.setAttribute("class", "row no-gutters mb-0");
-
-                const familyCol1 = document.createElement("div");
-                familyCol1.setAttribute("class", "col-sm-4");
-
-                const familyCol2 = document.createElement("div");
-                familyCol2.setAttribute("class", "col nopadding text-justify");
-
-                const familyName = document.createElement("b");
-                familyName.setAttribute("class", "strong");
-                familyName.innerText = "Family: ";
-
-                const familyDes = document.createElement("p");
-                familyDes.setAttribute("class", "");
-                familyDes.innerText = mushroom.family;
-
-                familyCol1.appendChild(familyName);
-
-                familyCol2.appendChild(familyDes);
-
-                familyRow.appendChild(familyCol1);
-                familyRow.appendChild(familyCol2);
-
-                // BUILD LOCATION
-
-                const locationRow = document.createElement("div");
-                locationRow.setAttribute("class", "row no-gutters mb-0");
-
-                const locationCol1 = document.createElement("div");
-                locationCol1.setAttribute("class", "col-sm-4");
-
-                const locationCol2 = document.createElement("div");
-                locationCol2.setAttribute("class", "col nopadding text-justify");
-
-                const locationName = document.createElement("b");
-                locationName.setAttribute("class", "strong");
-                locationName.innerText = "Location: ";
-
-                const locationDes = document.createElement("p");
-                locationDes.setAttribute("class", "");
-                locationDes.innerText = mushroom.location;
-
-                locationCol1.appendChild(locationName);
-
-                locationCol2.appendChild(locationDes);
-
-                locationRow.appendChild(locationCol1);
-                locationRow.appendChild(locationCol2);
-
-                // BUILD EDIBLE
-
-
-                const text = document.createElement("p");
-                text.setAttribute("class", "card-text");
-                text.innerText = "" + mushroom.edibleDescription;
-
-
-                body.appendChild(familyRow);
-
-                body.appendChild(locationRow);
-
-                body.appendChild(text);
-
-                card.appendChild(header);
-                card.appendChild(body);
-
-                link.appendChild(card);
-
-                const slotId = "mushroom-slot-" + slot;
-
-                document.getElementById(slotId).appendChild(link);
-            }
-
-        }
 
 
     </script>
@@ -183,7 +68,7 @@
 
                 <div class="row mt-3">
                     <div class="col-sm-2 mb-3">
-                        <div class="accordion accordion-flush filter-accordion mt-3" id="accordion-mfilters">
+                        <div class="accordion accordion-flush filter-accordion" id="accordion-mfilters">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="accordion-mheading1">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-m1" aria-expanded="false" aria-controls="collapse-m1">
@@ -221,13 +106,186 @@
                     </div>
 
                     <div class="col-lg-3 mb-3" id="mushroom-slot-1">
+                        @foreach (var item in Model.Mushrooms!.Where((x, i) => i % 3 == 0))
+                        {
+                        <a asp-action="Information" asp-route-id="@item.Id" class="card-link">
+                        <div class="card display-card text-black mb-3">
+                            <div class="card-header">
+                                @Html.DisplayFor(modelItem => item.Name)
+                                <div class="float-end">
+                                    @if (item.Edible == true)
+                                    {
+                                        <span class="badge badge-success">Edible</span>
 
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Inedible</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-image mb-3">
+                                    <img />
+                                </div>
+
+							    <p class="card-text mb-1">
+                                    <b> Family: </b>
+                                    @Html.DisplayFor(modelItem => item.Family)
+                                </p>
+                                <p class="card-text mb-1">
+                                    <b> Location: </b>
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </p>
+                                <p class="card-text mb-1">
+                                    <b> Dimensions: </b>
+                                    Cap @Html.DisplayFor(modelItem => item.CapDiameter) diameter,  Stem @Html.DisplayFor(modelItem => item.StemHeight) tall
+                                </p>
+                                @if (item.Edible == true)
+                                {
+                                    <p class="card-text mb-1">
+                                        <b> Edible: </b> Yes
+                                    </p>
+                                } else
+                                {
+                                    <p class="card-text mb-1">
+                                        <b> Edible: </b> No
+                                    </p>
+                                }
+                                <p class="card-text mb-1">
+                                    <b> Cap: </b>
+                                    @Html.DisplayFor(modelItem => item.CapDescription)
+                                </p>
+                                <p class="card-text">
+                                    <b> Stem: </b>
+                                    @Html.DisplayFor(modelItem => item.StemDescription)
+                                </p>
+                            </div>
+                        </div>
+                        </a>
+                        }
                     </div>
                     <div class="col-lg-3 mb-3" id="mushroom-slot-2">
+                        @foreach (var item in Model.Mushrooms!.Where((x, i) => i % 3 == 1))
+                        {
+                        <a asp-action="Information" asp-route-id="@item.Id" class="card-link">
+                        <div class="card display-card text-black mb-3">
+                            <div class="card-header">
+                                @Html.DisplayFor(modelItem => item.Name)
+                                <div class="float-end">
+                                    @if (item.Edible == true)
+                                    {
+                                        <span class="badge badge-success">Edible</span>
 
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Inedible</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-image mb-3">
+                                    <img />
+                                </div>
+
+                                <p class="card-text mb-1">
+                                    <b> Family: </b>
+                                    @Html.DisplayFor(modelItem => item.Family)
+                                </p>
+                                <p class="card-text mb-1">
+                                    <b> Location: </b>
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </p>
+                                <p class="card-text mb-1">
+                                    <b> Dimensions: </b>
+                                    Cap @Html.DisplayFor(modelItem => item.CapDiameter) diameter,  Stem @Html.DisplayFor(modelItem => item.StemHeight) tall
+                                </p>
+                                @if (item.Edible == true)
+                                {
+                                    <p class="card-text mb-1">
+                                        <b> Edible: </b> Yes
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="card-text mb-1">
+                                        <b> Edible: </b> No
+                                    </p>
+                                }
+                                <p class="card-text mb-1">
+                                    <b> Cap: </b>
+                                    @Html.DisplayFor(modelItem => item.CapDescription)
+                                </p>
+                                <p class="card-text">
+                                    <b> Stem: </b>
+                                    @Html.DisplayFor(modelItem => item.StemDescription)
+                                </p>
+                            </div>
+                        </div>
+                        </a>
+                        }
                     </div>
                     <div class="col-lg-3 mb-3" id="mushroom-slot-3">
+                        @foreach (var item in Model.Mushrooms!.Where((x, i) => i % 3 == 2))
+                        {
+                        <a asp-action="Information" asp-route-id="@item.Id" class="card-link">
+                        <div class="card display-card text-black mb-3">
+                            <div class="card-header">
+                                @Html.DisplayFor(modelItem => item.Name)
+                                <div class="float-end">
+                                    @if (item.Edible == true)
+                                    {
+                                        <span class="badge badge-success">Edible</span>
 
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Inedible</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-image mb-3">
+                                    <img />
+                                </div>
+
+                                <p class="card-text mb-1">
+                                    <b> Family: </b>
+                                    @Html.DisplayFor(modelItem => item.Family)
+                                </p>
+                                <p class="card-text mb-1">
+                                    <b> Location: </b>
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </p>
+                                <p class="card-text mb-1">
+                                    <b> Dimensions: </b>
+                                    Cap @Html.DisplayFor(modelItem => item.CapDiameter) diameter,  Stem @Html.DisplayFor(modelItem => item.StemHeight) tall
+                                </p>
+                                @if (item.Edible == true)
+                                {
+                                    <p class="card-text mb-1">
+                                        <b> Edible: </b> Yes
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="card-text mb-1">
+                                        <b> Edible: </b> No
+                                    </p>
+                                }
+                                <p class="card-text mb-1">
+                                    <b> Cap: </b>
+                                    @Html.DisplayFor(modelItem => item.CapDescription)
+                                </p>
+                                <p class="card-text">
+                                    <b> Stem: </b>
+                                    @Html.DisplayFor(modelItem => item.StemDescription)
+                                </p>
+                            </div>
+                        </div>
+                        </a>
+                        }
                     </div>
                 </div>
 
