@@ -1,13 +1,17 @@
-﻿/* DISPLAY CARD */
+﻿@use "_mixins.scss" as *;
+
+/* DISPLAY CARD */
 
 .display-card {
     @include card-gradient;
     font-family: "Outfit";
     font-size: 14px;
+    transition: transform .3s; /* smoother zoom */
 }
 
 .display-card:hover {
     @include card-gradient-active;
+    transform: scale(1.01);
 }
 
 .card-link {
@@ -15,6 +19,22 @@
 }
 
 .card-image {
-    min-width: 256px;
-    min-height: 256px;
+    min-width: 30%;
+    min-height: 30%;
+}
+
+.image-card {
+    overflow: hidden;
+}
+
+.display-image {
+    transition: transform .4s; /* smoother zoom */
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.display-image:hover {
+    transform: scale(1.1);
+    
 }

@@ -97,6 +97,54 @@ html {
   border-radius: 10px;
 }
 
+/* SET CUSTOM COLOURS */
+/* WHITES & GRAYS */
+/* THEME COLOURS!!! */
+/* MODIFY BOOTSTRAP COLOUR MAP */
+/* ACCORDION OVERRIDES */
+/* INPUT OVERRIDES */
+/* BUTTON OVERRIDES */
+/* BORDER OVERRIDES */
+/* CARD OVERRIDES */
+/* CONTAINER OVERRIDES */
+/* GUTTERS */
+/* DISPLAY CARD */
+.display-card {
+  background: linear-gradient(to right, rgba(192, 129, 255, 0.95), rgba(220, 184, 225, 0.95));
+  font-family: "Outfit";
+  font-size: 14px;
+  transition: transform 0.3s; /* smoother zoom */
+}
+
+.display-card:hover {
+  background: linear-gradient(to right, rgba(192, 129, 255, 0.95), rgba(234, 213, 255, 0.95));
+  transform: scale(1.01);
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card-image {
+  min-width: 30%;
+  min-height: 30%;
+}
+
+.image-card {
+  overflow: hidden;
+}
+
+.display-image {
+  transition: transform 0.4s; /* smoother zoom */
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.display-image:hover {
+  transform: scale(1.1);
+}
+
 /* IMPORT SECTIONS */
 /* SET CUSTOM COLOURS */
 /* WHITES & GRAYS */
@@ -182,25 +230,6 @@ body {
   margin: 0 !important;
 }
 
-.display-card {
-  background: linear-gradient(to right, rgba(192, 129, 255, 0.95), rgba(220, 184, 225, 0.95));
-  font-family: "Outfit";
-  font-size: 14px;
-}
-
-.display-card:hover {
-  background: linear-gradient(to right, rgba(192, 129, 255, 0.95), rgba(234, 213, 255, 0.95));
-}
-
-.card-link {
-  text-decoration: none;
-}
-
-.card-image {
-  min-width: 256px;
-  min-height: 256px;
-}
-
 .badge-danger {
   color: white;
   background: red;
@@ -209,6 +238,20 @@ body {
 .badge-success {
   color: white;
   background: green;
+}
+
+.image-store {
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+.information-col {
+  font-family: "Outfit";
+  font-size: 16px;
+}
+
+#mushroom-image-col {
+  overflow: hidden;
 }
 
 /* IMPORT OTHER */

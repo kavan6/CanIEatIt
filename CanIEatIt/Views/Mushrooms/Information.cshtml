@@ -1,7 +1,42 @@
 ﻿@model CanIEatIt.Models.Mushroom
+@using System.IO
+
 
 @{
     ViewData["Title"] = Model.Name;
+    int contHeight = 0;
+
+}
+
+@section Scripts {
+    <script>
+        (function (window, document, undefined) {
+
+
+        })(window, document, undefined);
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var infoCont = document.getElementById('mushroom-info-cont');
+            var imageCol = document.getElementById('mushroom-image-col');
+            var imageCol1 = document.getElementById('image-store1');
+            var imageCol2 = document.getElementById('image-store2');
+
+
+            function setImageColHeight() {
+                var infoHeight = infoCont.clientHeight;
+                imageCol.style.height = infoHeight + 'px';
+
+                imageCol1.style.height = infoHeight + 'px';
+                imageCol2.style.height = infoHeight + 'px';
+            }
+
+            setImageColHeight();
+
+            window.addEventListener('resize', setImageColHeight);
+        });
+
+    </script>
 }
 
 
@@ -12,105 +47,110 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">
-            <div class="row g-0 mt-3">
-                <div class="col">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div class="col overflow-hidden" id="mushroom-image-col">
+            <div class="container nopadding image-container">
+                <div class="row g-1 mt-3">
+                    @if (Directory.Exists("wwwroot/images/Mushrooms/" + Model.Name))
+                    {
+                        <div class="col image-store" id="image-store1">
+                            @foreach (var image in Directory.GetFiles("wwwroot/images/Mushrooms/" + Model.Name).Where((x, i) => i % 2 == 0))
+                            {
+                                <div class="card image-card rounded-0">
+                                    <img src="@image.Remove(0, 7)" class="card-img display-image rounded-0" alt="...">
+                                </div>
+                            }
                         </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="col image-store" id="image-store2">
+                            @foreach (var image in Directory.GetFiles("wwwroot/images/Mushrooms/" + Model.Name).Where((x, i) => i % 2 == 1))
+                            {
+                                <div class="card image-card rounded-0">
+                                    <img src="@image.Remove(0, 7)" class="card-img display-image rounded-0" alt="...">
+                                </div>
+                            }
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
-        <div class="col-lg-5">
-            <div class="row mt-3">
-                <div class="col">
-                    <div class="row">
-                        <h4>@Html.DisplayFor(model => model.Name)</h4>
-                    </div>
-                    <div class="row mt-1">
-                        <h5>@Html.DisplayFor(model => model.Family)</h5>
-                    </div>
-                    <div class="row mt-3">
+        <div class="col-lg-5 mt-3 information-col">
+            <div class="container" id="mushroom-info-cont">
+                <div class="row">
+                    <h4>@Html.DisplayFor(model => model.Name)</h4>
+                </div>
+                <div class="row mt-1">
+                    <h5>@Html.DisplayFor(model => model.Family)</h5>
+                </div>
+                <div class="row mt-3">
+                    <p>
+                        <b>Location: </b>
+                        @Html.DisplayFor(model => model.Location)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Dimensions: </b>
+                        Cap @Html.DisplayFor(model => model.CapDiameter) diameter,  Stem @Html.DisplayFor(model => model.StemHeight) tall
+                    </p>
+                </div>
+                <div class="row">
+                    @if (Model.Edible == true)
+                    {
                         <p>
-                            <b>Location: </b>
-                            @Html.DisplayFor(model => model.Location)
+                            <b> Edible: </b> Yes
                         </p>
-                    </div>
-                    <div class="row">
+                    }
+                    else
+                    {
                         <p>
-                            <b> Dimensions: </b>
-                            Cap @Html.DisplayFor(model => model.CapDiameter) diameter,  Stem @Html.DisplayFor(model => model.StemHeight) tall
+                            <b> Edible: </b> No
                         </p>
-                    </div>
-                    <div class="row">
-                        @if (Model.Edible == true)
-                        {
-                            <p>
-                                <b> Edible: </b> Yes
-                            </p>
-                        }
-                        else
-                        {
-                            <p>
-                                <b> Edible: </b> No
-                            </p>
-                        }
-                    </div>
-                    <div class="row">
-                        <p>
-                            <b> Edibility: </b>
-                            @Html.DisplayFor(model => model.EdibleDescription)
-                        </p>
-                    </div>
-                    <div class="row">
-                        <p>
-                            <b> Cap: </b>
-                            @Html.DisplayFor(model => model.CapDescription)
-                        </p>
-                    </div>
-                    <div class="row">
-                        <p>
-                            <b> Stem: </b>
-                            @Html.DisplayFor(model => model.StemDescription)
-                        </p>
-                    </div>
-                    <div class="row">
-                        <p>
-                            <b> Gills: </b>
-                            @Html.DisplayFor(model => model.GillDescription)
-                        </p>
-                    </div>
-                    <div class="row">
-                        <p>
-                            <b> Spores: </b>
-                            @Html.DisplayFor(model => model.SporeDescription)
-                        </p>
-                    </div>
-                    <div class="row">
-                        <p>
-                            <b> Spore Print: </b>
-                            @Html.DisplayFor(model => model.MicroscopicDescription)
-                        </p>
-                    </div>
-                    <div class="row">
-                        <p>
-                            <b> Note: </b>
-                            @Html.DisplayFor(model => model.Note)
-                        </p>
-                    </div>
+                    }
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Edibility: </b>
+                        @Html.DisplayFor(model => model.EdibleDescription)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Cap: </b>
+                        @Html.DisplayFor(model => model.CapDescription)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Stem: </b>
+                        @Html.DisplayFor(model => model.StemDescription)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Gills: </b>
+                        @Html.DisplayFor(model => model.GillDescription)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Spores: </b>
+                        @Html.DisplayFor(model => model.SporeDescription)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Spore Print: </b>
+                        @Html.DisplayFor(model => model.MicroscopicDescription)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                        <b> Note: </b>
+                        @Html.DisplayFor(model => model.Note)
+                    </p>
+                </div>
+                <div class="row">
+                    <p>
+                    </p>
                 </div>
             </div>
         </div>

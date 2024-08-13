@@ -1,5 +1,6 @@
 ﻿@model CanIEatIt.Models.MushroomViewModel
 @using CanIEatIt.Services
+@using System.IO
 
 
 @{
@@ -125,8 +126,14 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="card-image mb-3">
-                                    <img />
+                                <div class="card-image mb-3">   
+                                    @if (Directory.Exists("wwwroot/images/Mushrooms/" + item.Name))
+                                    {
+                                        @if (Directory.GetFiles("wwwroot/images/Mushrooms/" + item.Name).Any())
+                                        {
+                                            <img src="@Directory.GetFiles("wwwroot/images/Mushrooms/" + item.Name).First().Remove(0, 7)" class="card-img" />
+                                        }
+                                    }
                                 </div>
 
 							    <p class="card-text mb-1">
@@ -186,7 +193,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="card-image mb-3">
-                                    <img />
+                                    @if (Directory.Exists("wwwroot/images/Mushrooms/" + item.Name))
+                                    {
+                                        @if (Directory.GetFiles("wwwroot/images/Mushrooms/" + item.Name).Any())
+                                        {
+                                            <img src="@Directory.GetFiles("wwwroot/images/Mushrooms/" + item.Name).First().Remove(0, 7)" class="card-img" />
+                                        }
+                                    }
                                 </div>
 
                                 <p class="card-text mb-1">
@@ -247,7 +260,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="card-image mb-3">
-                                    <img />
+                                    @if (Directory.Exists("wwwroot/images/Mushrooms/" + item.Name))
+                                    {
+                                        @if (Directory.GetFiles("wwwroot/images/Mushrooms/" + item.Name).Any())
+                                        {
+                                            <img src="@Directory.GetFiles("wwwroot/images/Mushrooms/" + item.Name).First().Remove(0, 7)" class="card-img"/>
+                                        }
+                                    }
                                 </div>
 
                                 <p class="card-text mb-1">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -239,6 +240,8 @@ namespace CanIEatIt.Controllers
 
                 mushroom.LowerHeight = n1res;
                 mushroom.UpperHeight = n2res;
+
+                Directory.CreateDirectory("wwwroot/images/Mushrooms/" + mushroom.Name);
 
                 _context.Add(mushroom);
                 await _context.SaveChangesAsync();

@@ -21,7 +21,7 @@ namespace CanIEatIt.Models
                     {
                         Name = "Agaricus Arvensis (Horse Mushroom)",
                         Family = "Agaricaceae",
-                        Location = "Europe and parts of North America and Asia",
+                        Location = "Europe and parts of North America and Asia.",
                         CapDiameter = "8-20cm",
                         LowerDiameter = 8,
                         UpperDiameter = 20,
