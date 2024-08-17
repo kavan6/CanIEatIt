@@ -48,13 +48,13 @@
 
 
             <div class="col mt-auto">
-                <div class="search-form-input keywords-filter bottom" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
-                    <input class="input search-form-input" id="input-keywords" value="Keywords..." type="text" asp-for="SearchKeyWords" onclick="wipeInputBox(this);" />
+                <div class="search-form-input keywords-filter bottom" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
+                    <input class="input search-form-input" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
                 </div>
             </div>
 
             <div class="col mt-auto">
-                <input class="btn btn-primary" type="submit" value="Search" onclick="UpdateCards()" />
+                <input class="btn btn-primary" type="submit" value="Search" onclick="" />
             </div>
 
             <div class="col mt-auto">

@@ -30,7 +30,7 @@ namespace CanIEatIt.Models
         public string? SearchSporeDes { get; set; }
         public string? SearchMicroDes { get; set; }
         public string? SearchNote { get; set; }
-        public string? SearchKeyWords { get; set; }
+        public string[]? SearchKeyWords { get; set; }
 
     }
 }

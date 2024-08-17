@@ -53,7 +53,7 @@ namespace CanIEatIt.Controllers
                                                   int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
                                                   string searchEdibleDes, string searchCapDes, string searchStemDes, 
                                                   string searchGillDes, string searchSporeDes, string searchMicroDes, 
-                                                  string searchNote, string searchKeyWords
+                                                  string searchNote, string[] searchKeyWords
                                                  )
         {
 
@@ -144,19 +144,27 @@ namespace CanIEatIt.Controllers
                 mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
             }
 
-            //if(!string.IsNullOrEmpty(searchKeyWords))
-            //{
-            //    mushrooms = mushrooms.Where(x => (
-            //    x.Location!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-            //    (x.EdibleDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-            //    (x.CapDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-            //    (x.StemDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-            //    (x.GillDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-            //    (x.SporeDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-            //    (x.MicroscopicDescription!.ToUpper().Contains(searchKeyWords.ToUpper())) || 
-            //    (x.Note!.ToUpper().Contains(searchKeyWords.ToUpper()))
-            //    );
-            //}
+            var co = searchKeyWords.Count();
+
+            if (searchKeyWords.Count() > 0)
+            {
+                foreach (var word in searchKeyWords)
+                {
+                    mushrooms = mushrooms.Where(
+                        x => 
+                    (x.Name!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.Family!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.Location!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.EdibleDescription!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.CapDescription!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.StemDescription!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.GillDescription!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.SporeDescription!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.MicroscopicDescription!.ToUpper().Contains(word.ToUpper())) ||
+                    (x.Note!.ToUpper().Contains(word.ToUpper()))
+                    );
+                }
+            }
             #endregion
 
             var mushroomEdibleVM = new MushroomViewModel
