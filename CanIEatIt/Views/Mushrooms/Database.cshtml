@@ -26,39 +26,42 @@
     <div class="container">
         <div class="row mt-3 mb-3">
 
-            <div class="col mt-auto">
-                <input class="input search-form-input bottom" id="input-name" value="Name..." type="text" asp-for="SearchName" />
+            
 
-            </div>
-
-            <div class="col mt-auto">
-                Location:
-                <select class="input search-form-select bottom" asp-for="SearchLocation" asp-items="Model.Locations">
-                    <option value="">All</option>
-                </select>
-            </div>
-
-
-            <div class="col mt-auto">
-                Edible?:
-                <select class="input search-form-select bottom" asp-for="SearchEdible" asp-items="Model.Edibles">
-                    <option value="">All</option>
-                </select>
-            </div>
-
-
-            <div class="col mt-auto">
-                <div class="search-form-input keywords-filter bottom" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
-                    <input class="input search-form-input" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
+            <div class="col mt-auto nopadding">
+                <div class="form-group">
+                    <input class="input search-form-input bottom form-control" id="input-name" value="Name..." type="text" asp-for="SearchName" />
                 </div>
             </div>
 
-            <div class="col mt-auto">
-                <input class="btn btn-primary" type="submit" value="Search" onclick="" />
+            <div class="col mt-auto nopadding">
+                <div class="form-group">
+                    <div class="search-form-input keywords-filter bottom form-control nopadding" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
+                        <input class="input search-form-input form-control" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
+                    </div>
+                </div>
+
             </div>
 
-            <div class="col mt-auto">
-                <button class="btn btn-primary" asp-action="Create"> Create New </button>
+            <div class="col mt-auto nopadding">
+                <div class="form-group">
+                    <select class="input search-form-select bottom form-control" asp-for="SearchEdible" asp-items="Model.Edibles">
+                        <option value="">Edible?</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col mt-auto nopadding">
+                <div class="form-group">
+                    <input class="btn btn-primary form-control" type="submit" value="Search" onclick="" />
+                </div>
+            </div>
+
+            <div class="col mt-auto nopadding">
+                <div class="form-group">
+                    <button class="btn btn-primary form-control" asp-action="Create"> Create New </button>
+                </div>
             </div>
 
         </div>
@@ -78,10 +81,72 @@
                                 </h2>
                                 <div id="collapse-m1" class="accordion-collapse collapse" aria-labelledby="accordion-mheading1" data-bs-parent="accordion-mfilters">
                                     <div class="accordion-body">
-                                        Family:
-                                        <select class="search-form-input" asp-for="SearchFamily" asp-items="Model.Families">
-                                            <option value="">All</option>
-                                        </select>
+
+                                        <div class="accordion accordion-flush filter-accordion" id="accordion-mlocations">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="accordion-mlheading1">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-ml1" aria-expanded="true" aria-controls="collapse-ml1">
+                                                        Locations
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-ml1" class="accordion-collapse collapse" aria-labelledby="accordion-mlheading1" data-bs-parent="#accordion-mlocations">
+                                                    <div class="accordion-body">
+                                                        <div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="All" id="location-check-default" name="searchLocation" onclick="checkAll(this)">
+                                                                <label class="form-check-label" for="location-check-default">
+                                                                    All
+                                                                </label>
+                                                            </div>
+                                                            <div id="check-list">
+                                                                @foreach (var location in Model.Locations!)
+                                                                {
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input location-check" type="checkbox" name="searchLocation" value="@location.Value" id="flexCheckDefault">
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            @location.Text
+                                                                        </label>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion accordion-flush filter-accordion" id="accordion-mfamilies">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="accordion-mfheading1">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-mf1" aria-expanded="true" aria-controls="collapse-mf1">
+                                                        Families
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse-mf1" class="accordion-collapse collapse" aria-labelledby="accordion-mfheading1" data-bs-parent="#accordion-mfamilies">
+                                                    <div class="accordion-body">
+                                                        <div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="All" id="family-check-default" name="searchFamily" onclick="checkAll(this)">
+                                                                <label class="form-check-label" for="family-check-default">
+                                                                    All
+                                                                </label>
+                                                            </div>
+                                                            <div id="check-list">
+                                                                @foreach (var family in Model.Families!)
+                                                                {
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input family-check" type="checkbox" name="searchFamily" value="@family.Text" id="flexCheckDefault">
+                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                            @family.Text
+                                                                        </label>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         Cap Diameter (cm): <input class="input search-form-input" type="text" asp-for="SearchCapDiameter" />
 

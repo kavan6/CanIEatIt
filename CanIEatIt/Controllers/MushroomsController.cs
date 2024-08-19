@@ -49,7 +49,7 @@ namespace CanIEatIt.Controllers
 
         // GET: Mushrooms
         public async Task<IActionResult> Database(
-                                                  string searchName, string searchFamily, string searchLocation, 
+                                                  string searchName, string[] searchFamily, string[] searchLocation,
                                                   int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
                                                   string searchEdibleDes, string searchCapDes, string searchStemDes, 
                                                   string searchGillDes, string searchSporeDes, string searchMicroDes, 
@@ -77,16 +77,6 @@ namespace CanIEatIt.Controllers
             if (!string.IsNullOrEmpty(searchName))
             {
                 mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchName.ToUpper()));
-            }
-
-            if (!string.IsNullOrEmpty(searchFamily))
-            {
-                mushrooms = mushrooms.Where(x => x.Family == searchFamily);
-            }
-
-            if (!string.IsNullOrEmpty(searchLocation))
-            {
-                mushrooms = mushrooms.Where(x => x.Location!.ToUpper().Contains(searchLocation.ToUpper()));
             }
 
             if (searchCapDiameter.HasValue)
@@ -144,8 +134,6 @@ namespace CanIEatIt.Controllers
                 mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
             }
 
-            var co = searchKeyWords.Count();
-
             if (searchKeyWords.Count() > 0)
             {
                 foreach (var word in searchKeyWords)
@@ -165,6 +153,30 @@ namespace CanIEatIt.Controllers
                     );
                 }
             }
+
+
+            // IN MEMORY OPERATIONS
+
+            var allMushrooms = await mushrooms.ToListAsync();
+
+            if (searchLocation.Count() > 0)
+            {
+                if (!searchLocation.Contains("All"))
+                {
+                    allMushrooms = allMushrooms.Where(x => searchLocation.Any(loc => x.Location.Contains(loc, StringComparison.OrdinalIgnoreCase))).ToList();
+                }
+            }
+
+            if (searchFamily.Count() > 0)
+            {
+                if (!searchFamily.Contains("All"))
+                {
+                    var families = searchFamily.Where(fam => fam != null);
+
+                    allMushrooms = allMushrooms.Where(x => families.Any(fam => x.Family.Contains(fam, StringComparison.OrdinalIgnoreCase))).ToList();
+                }
+            }
+
             #endregion
 
             var mushroomEdibleVM = new MushroomViewModel
@@ -172,7 +184,7 @@ namespace CanIEatIt.Controllers
                 Locations = new SelectList(await _serviceRepository.populateLocations(), "Value", "Text"),
                 Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
                 Edibles = new SelectList(await _serviceRepository.populateEdible(), "Value", "Text"),
-                Mushrooms = await mushrooms.ToListAsync()
+                Mushrooms = allMushrooms
             };
 
             return View(mushroomEdibleVM);

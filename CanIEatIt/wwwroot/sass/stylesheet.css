@@ -24,17 +24,16 @@ html {
 .keywords-filter {
   border: 2px solid #000000;
   border-radius: 2rem;
-  max-width: 13.9rem;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 2rem;
   background-color: white;
+  max-height: 2.35rem;
 }
 
 .keywords-filter > input {
   border: 0px;
   outline: none;
-  padding-left: 0.2rem;
+  padding-left: 0.75rem;
 }
 
 /* KEYWORD FILTER LABEL */
@@ -83,6 +82,15 @@ html {
   min-height: 2rem;
   font-size: 16px;
   font-family: "Outfit";
+}
+
+/* FORM GROUP */
+.form-group {
+  width: 100%;
+}
+
+.form-control {
+  width: 100%;
 }
 
 .filter-accordion {

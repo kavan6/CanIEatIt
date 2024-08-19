@@ -32,5 +32,6 @@ namespace CanIEatIt.Models
         public string? SearchNote { get; set; }
         public string[]? SearchKeyWords { get; set; }
 
+
     }
 }
