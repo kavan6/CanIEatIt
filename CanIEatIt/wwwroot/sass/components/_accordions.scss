@@ -1,5 +1,6 @@
 ﻿.filter-accordion {
     border-radius: 10px;
+    font-family: 'Outfit';
 }
 
 .accordion-item {
@@ -12,4 +13,10 @@
 
 .accordion-flush {
     border-radius: 10px;
+}
+
+.accordion-input {
+    width: 100%;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
 }

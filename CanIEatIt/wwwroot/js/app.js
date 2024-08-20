@@ -11,7 +11,7 @@ window.addEventListener('focusin', function (e) {
     }
 });
 window.addEventListener('focusout', function (e) {
-    if (e.target.classList[1] == 'search-form-input') {
+    if (e.target.classList[0] == 'input') {
         fillInputBox(e.target);
     }
 });
