@@ -1,5 +1,5 @@
 ﻿.filter-accordion {
-    border-radius: 10px;
+    border-radius: 0.3125rem;
     font-family: 'Outfit';
 }
 
@@ -19,4 +19,14 @@
     width: 100%;
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
+    border-radius: 0.3125rem;
+}
+
+.acc-btn {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+}
+
+#accordion-mfilters {
+    border: 2px solid;
 }

@@ -5,8 +5,13 @@
     font-size: 16px;
 }
 
-.main_logo {
+.navbar.navbar-default .navbar-collapse {
+    border: 1px solid transparent;
+}
+
+.main-logo {
     padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
 }
 
 .menu {

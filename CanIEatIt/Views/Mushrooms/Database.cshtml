@@ -5,6 +5,18 @@
 
 @{
     ViewData["Title"] = "Mushroom Database";
+
+    Model.SearchName = "Name...";
+
+    Model.SearchEdibleDes = "Edible Keyword(s)...";
+    Model.SearchCapDes = "Cap Keyword(s)...";
+    Model.SearchStemDes = "Stem Keyword(s)...";
+    Model.SearchSporeDes = "Spore Keyword(s)...";
+    Model.SearchGillDes = "Gill Keyword(s)...";
+
+
+    Model.SearchStemHeight = "0";
+    Model.SearchCapDiameter = "0";
 }
 
 @section Scripts
@@ -67,21 +79,21 @@
                         <div class="accordion accordion-flush filter-accordion" id="accordion-mfilters">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="accordion-mheading1">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-m1" aria-expanded="false" aria-controls="collapse-m1">
+                                    <button class="accordion-button acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-m1" aria-expanded="false" aria-controls="collapse-m1">
                                         Filters
                                     </button>
                                 </h2>
-                                <div id="collapse-m1" class="accordion-collapse collapse" aria-labelledby="accordion-mheading1" data-bs-parent="accordion-mfilters">
+                                <div id="collapse-m1" class="accordion-collapse collapse show" aria-labelledby="accordion-mheading1" data-bs-parent="accordion-mfilters">
                                     <div class="accordion-body">
 
                                         <div class="col justify-content-center">
 
-                                            <input class="input accordion-input" id="input-name" value="Name..." type="text" asp-for="SearchName" onclick="wipeInputBox(this);" />
+                                            <input class="input accordion-input" id="input-name" type="text" asp-for="SearchName" onclick="wipeInputBox(this);" />
 
                                             <div class="accordion accordion-flush filter-accordion" id="accordion-mlocations">
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="accordion-mlheading1">
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-ml1" aria-expanded="true" aria-controls="collapse-ml1">
+                                                        <button class="accordion-button collapsed acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-ml1" aria-expanded="true" aria-controls="collapse-ml1">
                                                             Locations
                                                         </button>
                                                     </h2>
@@ -114,7 +126,7 @@
                                             <div class="accordion accordion-flush filter-accordion" id="accordion-mfamilies">
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="accordion-mfheading1">
-                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-mf1" aria-expanded="true" aria-controls="collapse-mf1">
+                                                <button class="accordion-button collapsed acc-btn"type="button" data-bs-toggle="collapse" data-bs-target="#collapse-mf1" aria-expanded="true" aria-controls="collapse-mf1">
                                                             Families
                                                         </button>
                                                     </h2>
@@ -144,26 +156,28 @@
                                                 </div>
                                             </div>
 
-                                            <label for="cap-range" class="form-label" style="font-family: 'Outfit'">Cap Diameter (cm)</label>
-                                            <input type="range" class="form-range" min="0" max="100" step="1" id="cap-range" asp-for="SearchCapDiameter">
+                                            <label for="cap-range" class="form-label" style="font-family: 'Outfit'">Cap Diameter:</label>
+                                            <output class="">Any</output>
+                                            <input type="range" class="form-range" min="0" max="100" step="1" id="cap-range" asp-for="SearchCapDiameter" oninput="setRangeAny(this)">
 
-                                            <label for="stem-range" class="form-label" style="font-family: 'Outfit'">Stem Height (cm)</label>
-                                            <input type="range" class="form-range" min="0" max="100" step="1" id="stem-range" asp-for="SearchCapDiameter">
+                                            <label for="stem-range" class="form-label" style="font-family: 'Outfit'">Stem Height:</label>
+                                            <output class="">Any</output>
+                                            <input type="range" class="form-range" min="0" max="100" step="1" id="stem-range" asp-for="SearchStemHeight" oninput="setRangeAny(this)">
 
-                                            <input class="input accordion-input" value="Edible Keyword(s)..." type="text" asp-for="SearchEdibleDes" />
+                                            <input class="input accordion-input" id="input-edible" type="text" asp-for="SearchEdibleDes" onclick="wipeInputBox(this);"/>
 
-                                            <input class="input accordion-input" value="Cap Keyword(s)..." type="text" asp-for="SearchCapDes" />
+                                            <input class="input accordion-input" id="input-cap" type="text" asp-for="SearchCapDes" onclick="wipeInputBox(this);"/>
 
-                                            <input class="input accordion-input" value="Stem Keyword(s)..." type="text" asp-for="SearchStemDes" />
+                                            <input class="input accordion-input" id="input-stem" type="text" asp-for="SearchStemDes" onclick="wipeInputBox(this);"/>
 
-                                            <input class="input accordion-input" value="Gill Keyword(s)..." type="text" asp-for="SearchGillDes" />
+                                            <input class="input accordion-input" id="input-gill" type="text" asp-for="SearchGillDes" onclick="wipeInputBox(this);"/>
 
-                                            <input class="input accordion-input" value="Spore Keyword(s)..." type="text" asp-for="SearchSporeDes" />
+                                            <input class="input accordion-input" id="input-spore" type="text" asp-for="SearchSporeDes" onclick="wipeInputBox(this);"/>
 
-                                            <input class="input accordion-input" value="Microscopic Keyword(s)..." type="text" asp-for="SearchMicroDes" />
-
-                                            <input class="input accordion-input" value="Note Keyword(s)..." type="text" asp-for="SearchNote" />
-                                        </div>
+@*                                             <input class="input accordion-input" id="input-micro" value="Microscopic Keyword(s)..." type="text" asp-for="SearchMicroDes" onclick="wipeInputBox(this);"/>
+ *@
+@*                                             <input class="input accordion-input" id="input-note" value="Note Keyword(s)..." type="text" asp-for="SearchNote" onclick="wipeInputBox(this);" />
+ *@                                        </div>
                                     </div>
                                 </div>
                             </div>

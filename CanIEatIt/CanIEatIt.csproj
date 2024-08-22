@@ -20,12 +20,14 @@
     <Content Remove="wwwroot\js\_createCards.js" />
     <Content Remove="wwwroot\js\_eventListeners.js" />
     <Content Remove="wwwroot\js\_quickFunctions.js" />
+    <Content Remove="wwwroot\sass\components\_searchBar.scss" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="bundleconfig.json" />
     <_ContentIncludedByDefault Remove="wwwroot\js\_createCards.js" />
     <_ContentIncludedByDefault Remove="wwwroot\js\_eventListeners.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\sass\components\_searchBar.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +36,7 @@
     <None Include="wwwroot\js\_createCards.js" />
     <None Include="wwwroot\js\_eventListeners.js" />
     <None Include="wwwroot\js\_quickFunctions.js" />
+    <None Include="wwwroot\sass\components\_searchBar.scss" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,44 +12,40 @@
     </script>
 }
 
-<h2>Mushroom Home Page</h2>
-
 <form asp-controller="Mushrooms" asp-action="Database" method="get">
 
     <div class="container">
         <div class="row mt-3 mb-3">
 
-            <div class="col mt-auto">
-                <input class="input search-form-input bottom" id="input-name" value="Name..." type="text" asp-for="SearchName" />
+            <div class="col-lg-2"></div>
 
-            </div>
+            <div class="col">
+                <div class="row flex searchbar mt-3 mb-3">
 
-            <div class="col mt-auto">
-                Location:
-                <select class="input search-form-select bottom" asp-for="SearchLocation" asp-items="Model.Locations">
-                    <option value="">All</option>
-                </select>
-            </div>
+                    <div class="col mt-0 nopadding" style="max-height: 2.225rem">
+                        <div class="searchbar-form keywords-filter nopadding" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
+                            <input class="input searchbar-form" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
+                        </div>
+                    </div>
 
-
-            <div class="col mt-auto">
-                Edible?:
-                <select class="input search-form-select bottom" asp-for="SearchEdible" asp-items="Model.Edibles">
-                    <option value="">All</option>
-                </select>
-            </div>
+                    <div class="col mt-0 nopadding">
+                        <select class="input searchbar-form-select" asp-for="SearchEdible" asp-items="Model.Edibles">
+                            <option value="">Edible?</option>
+                        </select>
+                    </div>
 
 
-            <div class="col mt-auto">
-                <div class="search-form-input keywords-filter bottom" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
-                    <input class="input search-form-input" id="input-keywords" value="Keywords..." type="text" asp-for="SearchKeyWords" onclick="wipeInputBox(this);" />
+                    <div class="col-lg-2 col-sm-1 mt-0 nopadding d-flex justify-content-center">
+                        <div class="" style="width: 90%">
+                            <input class="btn-primary searchbar-form-button" type="submit" value="Search" onclick="" />
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
 
-            <div class="col mt-auto">
-                <input class="btn btn-primary rounded-pill" type="submit" value="Search" onclick="UpdateCards()" />
-            </div>
-
+            <div class="col-lg-1"></div>
         </div>
 
     </div>

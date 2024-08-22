@@ -52,7 +52,7 @@ namespace CanIEatIt.Controllers
                                                   string searchName, string[] searchFamily, string[] searchLocation,
                                                   int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
                                                   string searchEdibleDes, string searchCapDes, string searchStemDes, 
-                                                  string searchGillDes, string searchSporeDes, string searchMicroDes, 
+                                                  string searchGillDes, string searchSporeDes, 
                                                   string searchNote, string[] searchKeyWords
                                                  )
         {
@@ -61,6 +61,27 @@ namespace CanIEatIt.Controllers
             {
                 searchName = null;
             }
+            if (searchEdibleDes == "Edible Keyword(s)...")
+            {
+                searchEdibleDes = null;
+            }
+            if (searchCapDes == "Cap Keyword(s)...")
+            {
+                searchCapDes = null;
+            }
+            if (searchStemDes == "Stem Keyword(s)...")
+            {
+                searchStemDes = null;
+            }
+            if (searchGillDes == "Gill Keyword(s)...")
+            {
+                searchGillDes = null;
+            }
+            if (searchSporeDes == "Spore Keyword(s)...")
+            {
+                searchSporeDes = null;
+            }
+
 
 
             if (_context.Mushroom == null)
@@ -79,12 +100,12 @@ namespace CanIEatIt.Controllers
                 mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchName.ToUpper()));
             }
 
-            if (searchCapDiameter.HasValue)
+            if (searchCapDiameter.HasValue && searchStemHeight > 0)
             {
                 mushrooms = mushrooms.Where(x => ((searchCapDiameter >= x.LowerDiameter)&&(searchCapDiameter <= x.UpperDiameter)));
             }
 
-            if (searchStemHeight.HasValue)
+            if (searchStemHeight.HasValue && searchStemHeight > 0)
             {
                 mushrooms = mushrooms.Where(x => ((searchStemHeight >= x.LowerHeight)&&(searchStemHeight <= x.UpperHeight)));
             }
@@ -121,12 +142,7 @@ namespace CanIEatIt.Controllers
 
             if (!string.IsNullOrEmpty(searchSporeDes))
             {
-                mushrooms = mushrooms.Where(x => x.SporeDescription!.ToUpper().Contains(searchSporeDes.ToUpper()));
-            }
-
-            if (!string.IsNullOrEmpty(searchMicroDes))
-            {
-                mushrooms = mushrooms.Where(x => x.MicroscopicDescription!.ToUpper().Contains(searchMicroDes.ToUpper()));
+                mushrooms = mushrooms.Where(x => x.SporeDescription!.ToUpper().Contains(searchSporeDes.ToUpper()) || x.MicroscopicDescription!.ToUpper().Contains(searchSporeDes.ToUpper()));
             }
 
             if (!string.IsNullOrEmpty(searchNote))
