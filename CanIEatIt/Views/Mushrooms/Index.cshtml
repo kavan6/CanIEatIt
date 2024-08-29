@@ -12,46 +12,81 @@
     </script>
 }
 
-<form asp-controller="Mushrooms" asp-action="Database" method="get">
+<div class="row d-flex justify-content-center mt-3">
+    <div class="col-lg-2"></div>
+    <div class="col d-flex justify-content-center">
+        <nav class="navbar navbar-expand-lg" style="z-index: 500 !important">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav" style="z-index: 500">
+                        <li class="nav-item mt-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Database">Database</a>
+                        </li>
+                        <li class="nav-item mt-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Picking">Picking Guide</a>
+                        </li>
+                        <a class="navbar-brand" style="margin-right: 0 !important"><h2>Mushrooms</h2></a>
+                        <li class="nav-item mt-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Recipes">Recipes</a>
+                        </li>
+                        <li class="nav-item mt-1">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Mushrooms" asp-action="About">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
 
-    <div class="container">
-        <div class="row mt-3 mb-3">
+<div class="row">
+    <form asp-controller="Mushrooms" asp-action="Database" data-toggle="tooltip" data-placement="top" title="Mushroom Database Search" method="get">
 
-            <div class="col-lg-2"></div>
+        <div class="container">
 
-            <div class="col">
-                <div class="row flex searchbar mt-3 mb-3">
+            <div class="row mt-3 mb-3">
 
-                    <div class="col mt-0 nopadding" style="max-height: 2.225rem">
-                        <div class="searchbar-form keywords-filter nopadding" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
-                            <input class="input searchbar-form" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
+                <div class="col-lg-2"></div>
+
+                <div class="col">
+                    <div class="row flex searchbar mt-3 mb-3">
+
+                        <div class="col mt-0 nopadding" style="max-height: 2.225rem">
+                            <div class="searchbar-form keywords-filter nopadding" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
+                                <input class="input searchbar-form" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col mt-0 nopadding">
-                        <select class="input searchbar-form-select" asp-for="SearchEdible" asp-items="Model.Edibles">
-                            <option value="">Edible?</option>
-                        </select>
-                    </div>
-
-
-                    <div class="col-lg-2 col-sm-1 mt-0 nopadding d-flex justify-content-center">
-                        <div class="" style="width: 90%">
-                            <input class="btn-primary searchbar-form-button" type="submit" value="Search" onclick="" />
+                        <div class="col mt-0 nopadding">
+                            <select class="input searchbar-form-select" asp-for="SearchEdible" asp-items="Model.Edibles">
+                                <option value="">Edible?</option>
+                            </select>
                         </div>
+
+
+                        <div class="col-lg-2 col-sm-1 mt-0 nopadding d-flex justify-content-center">
+                            <div class="" style="width: 90%">
+                                <input class="btn-primary searchbar-form-button" type="submit" value="Search" onclick="" />
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
 
+                <div class="col-lg-2"></div>
             </div>
 
-            <div class="col-lg-1"></div>
         </div>
 
-    </div>
 
+    </form>
 
-</form>
+</div>
 
 <div>
     <span>

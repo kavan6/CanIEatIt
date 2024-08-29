@@ -47,6 +47,19 @@ namespace CanIEatIt.Controllers
             return View(mushroomEdibleVM);
         }
 
+        public IActionResult Picking()
+        {
+            return View();
+        }
+        public IActionResult Recipes()
+        {
+            return View();
+        }
+        public IActionResult About()
+        {
+            return View();
+        }
+
         // GET: Mushrooms
         public async Task<IActionResult> Database(
                                                   string searchName, string[] searchFamily, string[] searchLocation,

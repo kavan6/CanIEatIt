@@ -111,6 +111,7 @@ html {
   font-family: "Outfit";
   font-size: 14px;
   transition: transform 0.3s; /* smoother zoom */
+  z-index: 500;
 }
 
 .display-card:hover {
@@ -244,6 +245,33 @@ body {
 
 .navbar.navbar-default .navbar-collapse {
   border: 1px solid transparent;
+}
+
+.nav-item:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1050;
+}
+
+.dropdown-menu > li:hover {
+  transform: scale(1.05);
+}
+
+.navbar, .dropdown, .dropdown-menu {
+  position: relative;
+  z-index: 1000;
+}
+
+.navbar, .dropdown, .dropdown-menu, body {
+  position: relative;
+  z-index: 9999;
+}
+
+.navbar.nav-item {
+  z-index: 1049;
 }
 
 .main-logo {

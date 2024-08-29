@@ -9,6 +9,33 @@
     border: 1px solid transparent;
 }
 
+.nav-item:hover {
+    transform: scale(1.1);
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 1050;
+}
+
+.dropdown-menu > li:hover {
+    transform: scale(1.05);
+}
+
+.navbar, .dropdown, .dropdown-menu {
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar, .dropdown, .dropdown-menu, body {
+    position: relative;
+    z-index: 9999;
+}
+
+.navbar.nav-item {
+    z-index:1049;
+}
+
 .main-logo {
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
