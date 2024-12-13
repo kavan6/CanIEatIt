@@ -60,40 +60,53 @@ namespace CanIEatIt.Controllers
             return View();
         }
 
-        // GET: Mushrooms
+        // GET: AJAX async search
+
+        public async Task<IActionResult> Search(string searchValue)
+        {
+            if (searchValue == "Search mushrooms...")
+            {
+                searchValue = null;
+            }
+
+            if (_context.Mushroom == null)
+            {
+                return Problem("Entity set 'MushroomContext.Mushroom' is null.");
+            }
+
+            var mushrooms = from m in _context.Mushroom select m;
+
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchValue.ToUpper()));
+            }
+
+            var results = await mushrooms.ToListAsync();
+
+            var mushroomEdibleVM = new MushroomViewModel
+            {
+                Mushrooms = results,
+                SearchName = searchValue
+           
+            };
+
+            return Json(mushroomEdibleVM);
+
+        }
+
+        // GET: Main Page loader
+        [HttpGet]
         public async Task<IActionResult> Database(
                                                   string searchName, string[] searchFamily, string[] searchLocation,
                                                   int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
-                                                  string searchEdibleDes, string searchCapDes, string searchStemDes, 
-                                                  string searchGillDes, string searchSporeDes, 
-                                                  string searchNote, string[] searchKeyWords
+                                                  string[] searchKeyWords
                                                  )
         {
 
-            if(searchName == "Name...")
-            {
-                searchName = null;
-            }
-            if (searchEdibleDes == "Edible Keyword(s)...")
-            {
-                searchEdibleDes = null;
-            }
-            if (searchCapDes == "Cap Keyword(s)...")
-            {
-                searchCapDes = null;
-            }
-            if (searchStemDes == "Stem Keyword(s)...")
-            {
-                searchStemDes = null;
-            }
-            if (searchGillDes == "Gill Keyword(s)...")
-            {
-                searchGillDes = null;
-            }
-            if (searchSporeDes == "Spore Keyword(s)...")
-            {
-                searchSporeDes = null;
-            }
+            //if(searchName == "Name...")
+            //{
+            //    searchName = null;
+            //}
 
 
 
@@ -138,30 +151,30 @@ namespace CanIEatIt.Controllers
                 }
             }
 
-            if (!string.IsNullOrEmpty(searchCapDes))
-            {
-                mushrooms = mushrooms.Where(x => x.CapDescription!.ToUpper().Contains(searchCapDes.ToUpper()));
-            }
+            //if (!string.IsNullOrEmpty(searchCapDes))
+            //{
+            //    mushrooms = mushrooms.Where(x => x.CapDescription!.ToUpper().Contains(searchCapDes.ToUpper()));
+            //}
 
-            if (!string.IsNullOrEmpty(searchStemDes))
-            {
-                mushrooms = mushrooms.Where(x => x.StemDescription!.ToUpper().Contains(searchStemDes.ToUpper()));
-            }
+            //if (!string.IsNullOrEmpty(searchStemDes))
+            //{
+            //    mushrooms = mushrooms.Where(x => x.StemDescription!.ToUpper().Contains(searchStemDes.ToUpper()));
+            //}
 
-            if (!string.IsNullOrEmpty(searchGillDes))
-            {
-                mushrooms = mushrooms.Where(x => x.GillDescription!.ToUpper().Contains(searchGillDes.ToUpper()));
-            }
+            //if (!string.IsNullOrEmpty(searchGillDes))
+            //{
+            //    mushrooms = mushrooms.Where(x => x.GillDescription!.ToUpper().Contains(searchGillDes.ToUpper()));
+            //}
 
-            if (!string.IsNullOrEmpty(searchSporeDes))
-            {
-                mushrooms = mushrooms.Where(x => x.SporeDescription!.ToUpper().Contains(searchSporeDes.ToUpper()) || x.MicroscopicDescription!.ToUpper().Contains(searchSporeDes.ToUpper()));
-            }
+            //if (!string.IsNullOrEmpty(searchSporeDes))
+            //{
+            //    mushrooms = mushrooms.Where(x => x.SporeDescription!.ToUpper().Contains(searchSporeDes.ToUpper()) || x.MicroscopicDescription!.ToUpper().Contains(searchSporeDes.ToUpper()));
+            //}
 
-            if (!string.IsNullOrEmpty(searchNote))
-            {
-                mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
-            }
+            //if (!string.IsNullOrEmpty(searchNote))
+            //{
+            //    mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
+            //}
 
             if (searchKeyWords.Count() > 0)
             {
@@ -209,11 +222,14 @@ namespace CanIEatIt.Controllers
             #endregion
 
             var mushroomEdibleVM = new MushroomViewModel
-            { 
+            {
                 Locations = new SelectList(await _serviceRepository.populateLocations(), "Value", "Text"),
                 Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
                 Edibles = new SelectList(await _serviceRepository.populateEdible(), "Value", "Text"),
-                Mushrooms = allMushrooms
+                Mushrooms = allMushrooms,
+                SearchName = searchName,
+                SearchFamily = searchFamily
+                
             };
 
             return View(mushroomEdibleVM);

@@ -44,18 +44,27 @@
             <div class="col">
                 <div class="row flex searchbar mt-3 mb-3">
 
-                    <div class="col mt-0 nopadding" style="max-height: 2.225rem">
-                            <div class="searchbar-form keywords-filter nopadding" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
-                                <input class="input searchbar-form" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
-                            </div>
+                    <div class="col mt-0 nopadding">
+                            <input class="input searchbar-form-text" id="searchbar-search" type="text" value="Search mushrooms..." onclick="wipeInputBox(this);" onkeyup="grabSearchValue(this);"/>
+                    </div>
+
+                    <div class="col divider-col" style="margin-right: 0.4em !important;">
                     </div>
 
                     <div class="col mt-0 nopadding">
-                            <select class="input searchbar-form-select" asp-for="SearchEdible" asp-items="Model.Edibles">
+                            <select class="input searchbar-form-select" id="searchbar-selector" asp-for="SearchEdible" asp-items="Model.Edibles" onclick="changeChevron()">
                                 <option value="">Edible?</option>
                             </select>
                     </div>
 
+                    <div class="col icon-col">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" id="dropdown-chevron" onclick="changeChevron();">
+                                <path id="chevron-path" fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                        </svg>
+                    </div>
+
+                    <div class="col divider-col">
+                    </div>
 
                     <div class="col-lg-2 col-sm-1 mt-0 nopadding d-flex justify-content-center">
                         <div class="" style="width: 90%">
@@ -164,7 +173,7 @@
                                             <output class="">Any</output>
                                             <input type="range" class="form-range" min="0" max="100" step="1" id="stem-range" asp-for="SearchStemHeight" oninput="setRangeAny(this)">
 
-                                            <input class="input accordion-input" id="input-edible" type="text" asp-for="SearchEdibleDes" onclick="wipeInputBox(this);"/>
+@*                                             <input class="input accordion-input" id="input-edible" type="text" asp-for="SearchEdibleDes" onclick="wipeInputBox(this);"/>
 
                                             <input class="input accordion-input" id="input-cap" type="text" asp-for="SearchCapDes" onclick="wipeInputBox(this);"/>
 
@@ -172,7 +181,13 @@
 
                                             <input class="input accordion-input" id="input-gill" type="text" asp-for="SearchGillDes" onclick="wipeInputBox(this);"/>
 
-                                            <input class="input accordion-input" id="input-spore" type="text" asp-for="SearchSporeDes" onclick="wipeInputBox(this);"/>
+                                            <input class="input accordion-input" id="input-spore" type="text" asp-for="SearchSporeDes" onclick="wipeInputBox(this);"/> *@
+
+                                            <div class="col mt-0 nopadding">
+                                                    <div class="keywords-filter nopadding" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
+                                                        <input class="input accordion-input" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
+                                                    </div>
+                                            </div>
 
 @*                                             <input class="input accordion-input" id="input-micro" value="Microscopic Keyword(s)..." type="text" asp-for="SearchMicroDes" onclick="wipeInputBox(this);"/>
  *@

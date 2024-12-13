@@ -1,7 +1,7 @@
 ﻿@use "../_custom.scss" as *;
 
 @mixin body_gradient {
-    background: linear-gradient(to right, rgba(#ead5ff, 0.95), rgba(#b5008e, 0.95));
+    background: linear-gradient(to right, rgba(#f5f3ef, 0.95), rgba(#f5f5f5, 0.95));
 }
 
 @mixin card-gradient {
@@ -13,9 +13,9 @@
 }
 
 @mixin searchbar-btn-bg {
-    background: linear-gradient(to right, rgba($primary,0.95), rgba($secondary,0.95));
+    background: linear-gradient(to right, rgba($primary,0.95), rgba($display-card-colour2,0.95));
 }
 
 @mixin searchbar-btn-active-bg {
-    background: linear-gradient(to right, rgba($primary,0.95), rgba(#44003d,0.95));
+    background: linear-gradient(to right, rgba($primary,0.95), rgba($secondary,0.95));
 }

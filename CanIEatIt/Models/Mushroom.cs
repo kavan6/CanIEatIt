@@ -48,5 +48,7 @@ namespace CanIEatIt.Models
         public string? MicroscopicDescription { get; set; }
         public string? Note { get; set; }
 
+        public string? ImageUrl { get; set; }
+
     }
 }

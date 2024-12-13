@@ -15,3 +15,12 @@ window.addEventListener('focusout', function (e) {
         fillInputBox(e.target);
     }
 });
+
+window.addEventListener('click', function (e) {
+    if (e.target.id == 'dropdown-chevron') {
+        const select = document.getElementById('searchbar-selector');
+        // Create and dispatch a mouse event to simulate a click
+        const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window });
+        select.dispatchEvent(event);
+    }
+});

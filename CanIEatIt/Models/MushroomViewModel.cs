@@ -18,7 +18,7 @@ namespace CanIEatIt.Models
 
         // Search variables
         public string? SearchName { get; set; }
-        public string? SearchFamily { get; set; }
+        public string[]? SearchFamily { get; set; }
         public string? SearchLocation { get; set; }
         public string? SearchCapDiameter { get; set; }
         public string? SearchStemHeight { get; set; }
@@ -31,6 +31,8 @@ namespace CanIEatIt.Models
         public string? SearchMicroDes { get; set; }
         public string? SearchNote { get; set; }
         public string[]? SearchKeyWords { get; set; }
+
+        public string? SearchImageUrl { get; set; }
 
 
     }

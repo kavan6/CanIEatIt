@@ -1,19 +1,15 @@
 ﻿/* KEYWORD FILTER */
 
 .keywords-filter {
-    overflow-y: scroll;
+    overflow-y: visible;
     overflow-x: hidden;
     background-color: white;
     height: 100%;
     display: block;
     border-radius: 5px;
+    color: dimgray;
 }
 
-.keywords-filter > input {
-    border: 0px;
-    outline: none;
-    padding-left: 0.75rem;
-}
 
 /* KEYWORD FILTER LABEL */
 
@@ -21,7 +17,7 @@
     margin: 2px;
     padding: 2px 24px 2px 8px;
     float: left;
-    display: flex;
+    display: block;
     background-color: rgb(204, 204, 204);
     color: rgb(51, 51, 51);
     border-radius: 3px;

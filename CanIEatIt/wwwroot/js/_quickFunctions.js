@@ -49,7 +49,8 @@ function temp() {
 
 function wipeInputBox(e) {
     if (e.value == "Keywords..." || e.value == "Name..." || e.value == "Edible Keyword(s)..." || e.value == "Cap Keyword(s)..." || e.value == "Stem Keyword(s)..."
-        || e.value == "Gill Keyword(s)..." || e.value == "Spore Keyword(s)..." || e.value == "Microscopic Keyword(s)..." || e.value == "Note Keyword(s)...") {
+        || e.value == "Gill Keyword(s)..." || e.value == "Spore Keyword(s)..." || e.value == "Microscopic Keyword(s)..." || e.value == "Note Keyword(s)..."
+        || e.value == "Search mushrooms...") {
         e.value = "";
     }
 }
@@ -79,6 +80,9 @@ function fillInputBox(e) {
     }
     else if (e == document.getElementById("input-micro") && ("" == document.getElementById("input-micro").value)) {
         e.value = "Microscopic Keyword(s)...";
+    }
+    else if (e == document.getElementById("searchbar-search") && ("" == document.getElementById("searchbar-search").value)) {
+        e.value = "Search mushrooms...";
     }
     //else if (e == document.getElementById("input-note") && ("" == document.getElementById("input-note").value)) {
     //    e.value = "Note Keyword(s)...";
@@ -129,5 +133,107 @@ function setRangeAny(e) {
         e.previousElementSibling.value = e.value + 'cm';
     } else {
         e.previousElementSibling.value = 'Any';
+    }
+}
+
+var chevronDown = false;
+function changeChevron() {
+    let e = document.getElementById('chevron-path');
+
+    if (!chevronDown) {
+        chevronDown = true;
+        e.setAttribute('d', "M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z");
+    } else {
+        chevronDown = false;
+        e.setAttribute('d', "M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708");
+    }
+}
+
+function grabSearchValue(e) {
+    var val = e.value;
+
+    // Perform an AJAX request to the server
+    fetch('/Mushrooms/Search?searchValue=' + encodeURIComponent(val), {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json(); // Assuming the server returns JSON
+    })
+    .then(data => {
+        updateMushroomCards(data);
+        console.log(data); // Handle the response data (e.g., update your UI)
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+function updateMushroomCards(result) {
+    // Clear existing cards
+    const mushroomSlot1 = document.getElementById("mushroom-slot-1");
+    const mushroomSlot2 = document.getElementById("mushroom-slot-2");
+    const mushroomSlot3 = document.getElementById("mushroom-slot-3");
+
+    mushroomSlot1.innerHTML = '';  // Clear existing cards
+    mushroomSlot2.innerHTML = ''; 
+    mushroomSlot3.innerHTML = '';
+
+    let mushrooms = result.mushrooms;
+
+    if (!mushrooms) return;
+
+    for (var i = 0; i < mushrooms.length; i++) {
+
+        //// Create mushroom card ////
+
+        const card = document.createElement("a");
+        card.classList.add("card-link");
+        card.href = `/Mushrooms/Information/${mushrooms[i].id}`;
+
+        const cardDiv = document.createElement("div");
+        cardDiv.classList.add("card", "display-card", "text-black", "mb-3");
+
+        const cardHeader = document.createElement("div");
+        cardHeader.classList.add("card-header");
+        cardHeader.innerHTML = `
+            ${mushrooms[i].name}
+            <div class="float-end">
+                <span class="badge ${mushrooms[i].edible ? 'badge-success' : 'badge-danger'}">${mushrooms[i].edible ? 'Edible' : 'Inedible'}</span>
+            </div>
+        `;
+
+        const cardBody = document.createElement("div");
+        cardBody.classList.add("card-body");
+        cardBody.innerHTML = `
+            <div class="card-image mb-3">
+                <img src="${mushrooms[i].imageUrl}" class="card-img" />
+            </div>
+            <p class="card-text mb-1"><b>Family:</b> ${mushrooms[i].family}</p>
+            <p class="card-text mb-1"><b>Location:</b> ${mushrooms[i].location}</p>
+            <p class="card-text mb-1"><b>Dimensions:</b> Cap ${mushrooms[i].capDiameter} diameter, Stem ${mushrooms[i].stemHeight} tall</p>
+            <p class="card-text mb-1"><b>Edible:</b> ${mushrooms[i].edible ? 'Yes' : 'No'}</p>
+            <p class="card-text mb-1"><b>Cap:</b> ${mushrooms[i].capDescription}</p>
+            <p class="card-text"><b>Stem:</b> ${mushrooms[i].stemDescription}</p>
+        `;
+
+        cardDiv.appendChild(cardHeader);
+        cardDiv.appendChild(cardBody);
+        card.appendChild(cardDiv);
+
+        /////
+
+        if (i % 3 == 0) {
+            mushroomSlot1.appendChild(card);
+        } else if (i % 3 == 1) {
+            mushroomSlot2.appendChild(card);
+
+        } else if (i % 3 == 2) {
+            mushroomSlot3.appendChild(card);
+
+        }
     }
 }
