@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="col icon-col">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" id="dropdown-chevron" onclick="changeChevron();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16" id="dropdown-chevron">
                                 <path id="chevron-path" fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
                         </svg>
                     </div>
@@ -76,7 +76,11 @@
 
             </div>
 
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2 col-sm-2">
+                <div class="mt-3 mb-3">
+                    <a class="btn btn-primary text-dark" asp-controller="Mushrooms" asp-action="Create">Create</a>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -97,8 +101,8 @@
 
                                         <div class="col justify-content-center">
 
-                                            <input class="input accordion-input" id="input-name" type="text" asp-for="SearchName" onclick="wipeInputBox(this);" />
-
+@*                                             <input class="input accordion-input" id="input-name" type="text" asp-for="SearchName" onclick="wipeInputBox(this);" />
+ *@
                                             <div class="accordion accordion-flush filter-accordion" id="accordion-mlocations">
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="accordion-mlheading1">
@@ -173,33 +177,21 @@
                                             <output class="">Any</output>
                                             <input type="range" class="form-range" min="0" max="100" step="1" id="stem-range" asp-for="SearchStemHeight" oninput="setRangeAny(this)">
 
-@*                                             <input class="input accordion-input" id="input-edible" type="text" asp-for="SearchEdibleDes" onclick="wipeInputBox(this);"/>
-
-                                            <input class="input accordion-input" id="input-cap" type="text" asp-for="SearchCapDes" onclick="wipeInputBox(this);"/>
-
-                                            <input class="input accordion-input" id="input-stem" type="text" asp-for="SearchStemDes" onclick="wipeInputBox(this);"/>
-
-                                            <input class="input accordion-input" id="input-gill" type="text" asp-for="SearchGillDes" onclick="wipeInputBox(this);"/>
-
-                                            <input class="input accordion-input" id="input-spore" type="text" asp-for="SearchSporeDes" onclick="wipeInputBox(this);"/> *@
-
                                             <div class="col mt-0 nopadding">
                                                     <div class="keywords-filter nopadding" id="input-keywords-filter" onclick="Array.from(this.children).find(n => n.tagName==='INPUT').focus()">
                                                         <input class="input accordion-input" id="input-keywords" value="Keywords..." type="text" onclick="wipeInputBox(this);" />
                                                     </div>
                                             </div>
 
-@*                                             <input class="input accordion-input" id="input-micro" value="Microscopic Keyword(s)..." type="text" asp-for="SearchMicroDes" onclick="wipeInputBox(this);"/>
- *@
-@*                                             <input class="input accordion-input" id="input-note" value="Note Keyword(s)..." type="text" asp-for="SearchNote" onclick="wipeInputBox(this);" />
- *@                                        </div>
+   
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 mb-3" id="mushroom-slot-1">
+                    <div class="col-lg-3 col-xl-3 mb-3" id="mushroom-slot-1">
                         @foreach (var item in Model.Mushrooms!.Where((x, i) => i % 3 == 0))
                         {
                         <a asp-action="Information" asp-route-id="@item.Id" class="card-link">
@@ -265,7 +257,7 @@
                         </a>
                         }
                     </div>
-                    <div class="col-lg-3 mb-3" id="mushroom-slot-2">
+                    <div class="col-lg-3 col-xl-3 mb-3" id="mushroom-slot-2">
                         @foreach (var item in Model.Mushrooms!.Where((x, i) => i % 3 == 1))
                         {
                         <a asp-action="Information" asp-route-id="@item.Id" class="card-link">
@@ -332,7 +324,7 @@
                         </a>
                         }
                     </div>
-                    <div class="col-lg-3 mb-3" id="mushroom-slot-3">
+                    <div class="col-lg-3 col-xl-3 mb-3" id="mushroom-slot-3">
                         @foreach (var item in Model.Mushrooms!.Where((x, i) => i % 3 == 2))
                         {
                         <a asp-action="Information" asp-route-id="@item.Id" class="card-link">
@@ -400,7 +392,7 @@
                         }
                     </div>
 
-                    <div class="col-lg-2 mb-3">
+                    <div class="col-lg-1 col-xl-1 mb-3">
 
                     </div>
                 </div>

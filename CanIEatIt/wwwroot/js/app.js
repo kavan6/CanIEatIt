@@ -1,79 +1,3 @@
-
-window.addEventListener('keyup', function (e) {
-    if (e.key == ' ' && e.target == document.getElementById("input-keywords")) {
-        createLabel(e.target);
-    }
-});
-
-window.addEventListener('focusin', function (e) {
-    if (e.target.classList[1] == 'search-form-input') {
-        wipeInputBox(e.target);
-    }
-});
-window.addEventListener('focusout', function (e) {
-    if (e.target.classList[0] == 'input') {
-        fillInputBox(e.target);
-    }
-});
-
-window.addEventListener('click', function (e) {
-    if (e.target.id == 'dropdown-chevron') {
-        const select = document.getElementById('searchbar-selector');
-        // Create and dispatch a mouse event to simulate a click
-        const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window });
-        select.dispatchEvent(event);
-    }
-});
-
-
-function getKeywords() {
-    var filter = document.getElementById('input-keywords-filter');
-    var children = filter.childNodes;
-
-    for (var i = 1; i < children.length; i++) {
-        keywords.push(children[i].textContent);
-    }
-
-    document.getElementById('hidden-keywords').value = keywords;
-
-}
-
-function createLabel(e) {
-
-    if (e.value == ' ') {
-        e.value = '';
-        return null;
-    }
-
-    e.parentNode.appendChild(createLabelItem(e.value), e);
-
-    e.value = '';
-
-    function createLabelItem(text) {
-        const item = document.createElement("div");
-        item.setAttribute("class", "keyword-label");
-        const span = `<span>${text}</span>`;
-        const close = `<div class="fa fa-close" onclick="removeNodeLabel(this)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-</svg></div>`;
-
-        text = text.substring(0, text.length - 1);
-
-        const input = `<input type="hidden" value="${text}" name="SearchKeyWords"></input>`;
-
-        item.innerHTML = span + close + input;
-        return item;
-    }
-}
-
-function removeNodeLabel(e) {
-    e.parentNode.remove();
-}
-
-function temp() {
-
-}
-
 function wipeInputBox(e) {
     if (e.value == "Keywords..." || e.value == "Name..." || e.value == "Edible Keyword(s)..." || e.value == "Cap Keyword(s)..." || e.value == "Stem Keyword(s)..."
         || e.value == "Gill Keyword(s)..." || e.value == "Spore Keyword(s)..." || e.value == "Microscopic Keyword(s)..." || e.value == "Note Keyword(s)..."
@@ -111,9 +35,6 @@ function fillInputBox(e) {
     else if (e == document.getElementById("searchbar-search") && ("" == document.getElementById("searchbar-search").value)) {
         e.value = "Search mushrooms...";
     }
-    //else if (e == document.getElementById("input-note") && ("" == document.getElementById("input-note").value)) {
-    //    e.value = "Note Keyword(s)...";
-    //}
 }
 
 function checkAll(e) {
@@ -163,6 +84,51 @@ function setRangeAny(e) {
     }
 }
 
+function getKeywords() {
+    var filter = document.getElementById('input-keywords-filter');
+    var children = filter.childNodes;
+
+    for (var i = 1; i < children.length; i++) {
+        keywords.push(children[i].textContent);
+    }
+
+    document.getElementById('hidden-keywords').value = keywords;
+
+}
+
+function createLabel(e) {
+
+    if (e.value == ' ') {
+        e.value = '';
+        return null;
+    }
+
+    e.parentNode.appendChild(createLabelItem(e.value), e);
+
+    e.value = '';
+
+    function createLabelItem(text) {
+        const item = document.createElement("div");
+        item.setAttribute("class", "keyword-label");
+        const span = `<span>${text}</span>`;
+        const close = `<div class="fa fa-close" onclick="removeNodeLabel(this)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+</svg></div>`;
+
+        text = text.substring(0, text.length - 1);
+
+        const input = `<input type="hidden" value="${text}" name="SearchKeyWords"></input>`;
+
+        item.innerHTML = span + close + input;
+        return item;
+    }
+}
+
+function removeNodeLabel(e) {
+    e.parentNode.remove();
+}
+
+
 var chevronDown = false;
 function changeChevron() {
     let e = document.getElementById('chevron-path');
@@ -176,6 +142,35 @@ function changeChevron() {
     }
 }
 
+
+
+
+window.addEventListener('keyup', function (e) {
+    if (e.key == ' ' && e.target == document.getElementById("input-keywords")) {
+        createLabel(e.target);
+    }
+});
+
+window.addEventListener('focusin', function (e) {
+    if (e.target.classList[1] == 'search-form-input') {
+        wipeInputBox(e.target);
+    }
+});
+window.addEventListener('focusout', function (e) {
+    if (e.target.classList[0] == 'input') {
+        fillInputBox(e.target);
+    }
+});
+
+window.addEventListener('click', function (e) {
+    if (e.target.id == 'dropdown-chevron') {
+        const select = document.getElementById('searchbar-selector');
+        // Create and dispatch a mouse event to simulate a click
+        const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window });
+        select.dispatchEvent(event);
+    }
+});
+
 function grabSearchValue(e) {
     var val = e.value;
 
@@ -184,19 +179,19 @@ function grabSearchValue(e) {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.json(); // Assuming the server returns JSON
-    })
-    .then(data => {
-        updateMushroomCards(data);
-        console.log(data); // Handle the response data (e.g., update your UI)
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json(); // Assuming the server returns JSON
+        })
+        .then(data => {
+            updateMushroomCards(data);
+            console.log(data); // Handle the response data (e.g., update your UI)
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
 }
 
 function updateMushroomCards(result) {
@@ -206,10 +201,11 @@ function updateMushroomCards(result) {
     const mushroomSlot3 = document.getElementById("mushroom-slot-3");
 
     mushroomSlot1.innerHTML = '';  // Clear existing cards
-    mushroomSlot2.innerHTML = ''; 
+    mushroomSlot2.innerHTML = '';
     mushroomSlot3.innerHTML = '';
 
     let mushrooms = result.mushrooms;
+    let URLS = result.imageURLS;
 
     if (!mushrooms) return;
 
@@ -237,7 +233,7 @@ function updateMushroomCards(result) {
         cardBody.classList.add("card-body");
         cardBody.innerHTML = `
             <div class="card-image mb-3">
-                <img src="${mushrooms[i].imageUrl}" class="card-img" />
+                <img src="${URLS[i]}" class="card-img" />
             </div>
             <p class="card-text mb-1"><b>Family:</b> ${mushrooms[i].family}</p>
             <p class="card-text mb-1"><b>Location:</b> ${mushrooms[i].location}</p>
@@ -264,4 +260,3 @@ function updateMushroomCards(result) {
         }
     }
 }
-

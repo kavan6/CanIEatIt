@@ -8,81 +8,87 @@
 
 <h4>Mushroom</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Family" class="control-label"></label>
-                <input asp-for="Family" class="form-control" />
-                <span asp-validation-for="Family" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CapDiameter" class="control-label"></label>
-                <input asp-for="CapDiameter" class="form-control" />
-                <span asp-validation-for="CapDiameter" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StemHeight" class="control-label"></label>
-                <input asp-for="StemHeight" class="form-control" />
-                <span asp-validation-for="StemHeight" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Edible" /> @Html.DisplayNameFor(model => model.Edible)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="EdibleDescription" class="control-label"></label>
-                <input asp-for="EdibleDescription" class="form-control" />
-                <span asp-validation-for="EdibleDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CapDescription" class="control-label"></label>
-                <input asp-for="CapDescription" class="form-control" />
-                <span asp-validation-for="CapDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StemDescription" class="control-label"></label>
-                <input asp-for="StemDescription" class="form-control" />
-                <span asp-validation-for="StemDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GillDescription" class="control-label"></label>
-                <input asp-for="GillDescription" class="form-control" />
-                <span asp-validation-for="GillDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SporeDescription" class="control-label"></label>
-                <input asp-for="SporeDescription" class="form-control" />
-                <span asp-validation-for="SporeDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MicroscopicDescription" class="control-label"></label>
-                <input asp-for="MicroscopicDescription" class="form-control" />
-                <span asp-validation-for="MicroscopicDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div class="row">
+        <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Family" class="control-label"></label>
+                    <input asp-for="Family" class="form-control" />
+                    <span asp-validation-for="Family" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Location" class="control-label"></label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CapDiameter" class="control-label"></label>
+                    <input asp-for="CapDiameter" class="form-control" />
+                    <span asp-validation-for="CapDiameter" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StemHeight" class="control-label"></label>
+                    <input asp-for="StemHeight" class="form-control" />
+                    <span asp-validation-for="StemHeight" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Edible" /> @Html.DisplayNameFor(model => model.Edible)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EdibleDescription" class="control-label"></label>
+                    <input asp-for="EdibleDescription" class="form-control" />
+                    <span asp-validation-for="EdibleDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CapDescription" class="control-label"></label>
+                    <input asp-for="CapDescription" class="form-control" />
+                    <span asp-validation-for="CapDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StemDescription" class="control-label"></label>
+                    <input asp-for="StemDescription" class="form-control" />
+                    <span asp-validation-for="StemDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GillDescription" class="control-label"></label>
+                    <input asp-for="GillDescription" class="form-control" />
+                    <span asp-validation-for="GillDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SporeDescription" class="control-label"></label>
+                    <input asp-for="SporeDescription" class="form-control" />
+                    <span asp-validation-for="SporeDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MicroscopicDescription" class="control-label"></label>
+                    <input asp-for="MicroscopicDescription" class="form-control" />
+                    <span asp-validation-for="MicroscopicDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Note" class="control-label"></label>
+                    <input asp-for="Note" class="form-control" />
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+        </div>
+        <div class="col">
+                <div class="form-group">
+                    <label for="FileUpload" class="control-label">Images</label>
+                    <input id="FileUpload" type="file" name="files" multiple/>                
+                </div>
+        </div>
 </div>
+</form>
 
 <div>
     <a asp-action="Database">Back to List</a>

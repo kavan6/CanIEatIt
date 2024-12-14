@@ -45,6 +45,9 @@
         <div class="col-sm-2">
             <a class="btn btn-primary text-dark" asp-area="" asp-controller="Mushrooms" asp-action="Database">Back</a>
         </div>
+        <div class="col-sm-2">
+            <a class="btn btn-primary text-dark" asp-route-id="@Model.Id" asp-controller="Mushrooms" asp-action="Delete">Delete</a>
+        </div>
     </div>
     <div class="row">
         <div class="col overflow-hidden" id="mushroom-image-col">

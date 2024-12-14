@@ -33,9 +33,9 @@
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
-    <None Include="wwwroot\js\_createCards.js" />
-    <None Include="wwwroot\js\_eventListeners.js" />
-    <None Include="wwwroot\js\_quickFunctions.js" />
+    <None Include="wwwroot\js\LiveSearch\_liveSearch.js" />
+    <None Include="wwwroot\js\EventListeners\_eventListeners.js" />
+    <None Include="wwwroot\js\Utilities\_quickFunctions.js" />
     <None Include="wwwroot\sass\components\_searchBar.scss" />
   </ItemGroup>
 
@@ -55,8 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\Mushrooms\Agaricus Augustus %28the prince%29\" />
-    <Folder Include="wwwroot\images\Mushrooms\Agaricus Arvensis %28Horse Mushroom%29\" />
     <Folder Include="wwwroot\images\Plants\" />
     <Folder Include="wwwroot\modules\" />
   </ItemGroup>

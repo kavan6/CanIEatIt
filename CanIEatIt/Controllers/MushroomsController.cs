@@ -10,6 +10,8 @@ using CanIEatIt.Data;
 using CanIEatIt.Models;
 using CanIEatIt.Services;
 using System.Text.RegularExpressions;
+using NUglify.Helpers;
+using Microsoft.VisualBasic.FileIO;
 
 namespace CanIEatIt.Controllers
 {
@@ -83,10 +85,16 @@ namespace CanIEatIt.Controllers
 
             var results = await mushrooms.ToListAsync();
 
+            var URLS = results.Select(m => new
+            {
+                url = GetImageURL(m.Name!)
+            }).Select(a => a.url).ToList();
+
             var mushroomEdibleVM = new MushroomViewModel
             {
                 Mushrooms = results,
-                SearchName = searchValue
+                SearchName = searchValue,
+                ImageURLS = URLS
            
             };
 
@@ -94,19 +102,28 @@ namespace CanIEatIt.Controllers
 
         }
 
+        public string GetImageURL(string mushroomName)
+        {
+            var dir = Path.Combine("wwwroot", "images", "Mushrooms", mushroomName);
+            if (!Directory.Exists(dir)) return "images/default.png";
+
+            var files = Directory.GetFiles(dir);
+
+            if(files.Any())
+            {
+                return "/images/Mushrooms/" + mushroomName + "/" + Path.GetFileName(files.First());
+            }
+            return "/images/default.png";
+        }
+
         // GET: Main Page loader
         [HttpGet]
         public async Task<IActionResult> Database(
-                                                  string searchName, string[] searchFamily, string[] searchLocation,
+                                                  string[] searchFamily, string[] searchLocation,
                                                   int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
                                                   string[] searchKeyWords
                                                  )
         {
-
-            //if(searchName == "Name...")
-            //{
-            //    searchName = null;
-            //}
 
 
 
@@ -120,11 +137,6 @@ namespace CanIEatIt.Controllers
             var mushrooms = from m in _context.Mushroom select m;
 
             #region LINQ Searches
-
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchName.ToUpper()));
-            }
 
             if (searchCapDiameter.HasValue && searchStemHeight > 0)
             {
@@ -150,31 +162,6 @@ namespace CanIEatIt.Controllers
                         break;
                 }
             }
-
-            //if (!string.IsNullOrEmpty(searchCapDes))
-            //{
-            //    mushrooms = mushrooms.Where(x => x.CapDescription!.ToUpper().Contains(searchCapDes.ToUpper()));
-            //}
-
-            //if (!string.IsNullOrEmpty(searchStemDes))
-            //{
-            //    mushrooms = mushrooms.Where(x => x.StemDescription!.ToUpper().Contains(searchStemDes.ToUpper()));
-            //}
-
-            //if (!string.IsNullOrEmpty(searchGillDes))
-            //{
-            //    mushrooms = mushrooms.Where(x => x.GillDescription!.ToUpper().Contains(searchGillDes.ToUpper()));
-            //}
-
-            //if (!string.IsNullOrEmpty(searchSporeDes))
-            //{
-            //    mushrooms = mushrooms.Where(x => x.SporeDescription!.ToUpper().Contains(searchSporeDes.ToUpper()) || x.MicroscopicDescription!.ToUpper().Contains(searchSporeDes.ToUpper()));
-            //}
-
-            //if (!string.IsNullOrEmpty(searchNote))
-            //{
-            //    mushrooms = mushrooms.Where(x => x.Note!.ToUpper().Contains(searchNote.ToUpper()));
-            //}
 
             if (searchKeyWords.Count() > 0)
             {
@@ -227,8 +214,10 @@ namespace CanIEatIt.Controllers
                 Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
                 Edibles = new SelectList(await _serviceRepository.populateEdible(), "Value", "Text"),
                 Mushrooms = allMushrooms,
-                SearchName = searchName,
-                SearchFamily = searchFamily
+                SearchFamily = searchFamily,
+                SearchKeyWords = searchKeyWords,
+                SearchCapDiameter = searchCapDiameter.ToString(),
+                SearchStemHeight = searchStemHeight.ToString()
                 
             };
 
@@ -282,7 +271,7 @@ namespace CanIEatIt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom)
+        public async Task<IActionResult> Create([Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom, List<IFormFile> files)
         {
             if (ModelState.IsValid)
             {
@@ -306,13 +295,45 @@ namespace CanIEatIt.Controllers
                 mushroom.LowerHeight = n1res;
                 mushroom.UpperHeight = n2res;
 
-                Directory.CreateDirectory("wwwroot/images/Mushrooms/" + mushroom.Name);
+                await UploadFiles(mushroom.Name!, files);
 
                 _context.Add(mushroom);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Database));
             }
             return View(mushroom);
+        }
+
+        private readonly List<string> allowedExtensions = new List<string> { ".jpg", ".jpeg", ".png" };
+        public async Task<IActionResult> UploadFiles(string mName, List<IFormFile> files)
+        {
+            string baseDirectory = Path.Combine("wwwroot", "images", "Mushrooms", mName);
+            Directory.CreateDirectory(baseDirectory);
+
+            long size = files.Sum(f => f.Length);
+
+            foreach (var formFile in files)
+            {
+                if(formFile.Length > 0)
+                {
+                    var ext = Path.GetExtension(formFile.FileName).ToLowerInvariant();
+
+                    if(!allowedExtensions.Contains(ext))
+                    {
+                        ModelState.AddModelError("File", $"The file {formFile.FileName} is not a valid image file. Only .jpg, .jpeg, and .png are allowed.");
+                        return Forbid();
+                    }
+
+                    var filePath = Path.Combine(baseDirectory, Path.GetFileName(formFile.FileName));
+
+                    using (var stream = System.IO.File.Create(filePath))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+            }
+
+            return Ok(new { count = files.Count(), size });
         }
 
         // GET: Mushrooms/Edit/5

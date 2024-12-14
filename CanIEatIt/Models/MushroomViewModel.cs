@@ -32,7 +32,7 @@ namespace CanIEatIt.Models
         public string? SearchNote { get; set; }
         public string[]? SearchKeyWords { get; set; }
 
-        public string? SearchImageUrl { get; set; }
+        public List<string>? ImageURLS { get; set; }
 
 
     }

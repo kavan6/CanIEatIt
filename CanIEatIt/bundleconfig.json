@@ -14,9 +14,11 @@
   {
     "outputFileName": "wwwroot/js/app.js",
     "inputFiles": [
-      "wwwroot/js/_createCards.js",
-      "wwwroot/js/_eventListeners.js",
-      "wwwroot/js/_quickFunctions.js",
+      "wwwroot/js/Utilities/_inputBox.js",
+      "wwwroot/js/Utilities/_keywords.js",
+      "wwwroot/js/Utilities/_quickFunctions.js",
+      "wwwroot/js/EventListeners/_eventListeners.js",
+      "wwwroot/js/LiveSearch/_liveSearch.js",
       "wwwroot/js/_site.js"
     ]
   }
