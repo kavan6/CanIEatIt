@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanIEatIt", "CanIEatIt\CanIEatIt.csproj", "{A0C6FDDF-7E98-48B8-B2BE-D37055961E38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanIEatIt", "CanIEatIt\CanIEatIt.csproj", "{A0C6FDDF-7E98-48B8-B2BE-D37055961E38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanIEatIt.UnitTests", "CanIEatIt.UnitTests\CanIEatIt.UnitTests.csproj", "{04F01C20-1C80-4494-ADFB-DC587A47231B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A0C6FDDF-7E98-48B8-B2BE-D37055961E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0C6FDDF-7E98-48B8-B2BE-D37055961E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0C6FDDF-7E98-48B8-B2BE-D37055961E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F01C20-1C80-4494-ADFB-DC587A47231B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F01C20-1C80-4494-ADFB-DC587A47231B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F01C20-1C80-4494-ADFB-DC587A47231B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F01C20-1C80-4494-ADFB-DC587A47231B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -38,11 +38,15 @@ namespace CanIEatIt.Controllers
 
             var mushrooms = from m in _context.Mushroom select m;
 
+            var locations = await _serviceRepository.populateLocations();
+            var families = await familyQuery.Distinct().ToListAsync();
+            var edibles = await _serviceRepository.populateEdible();
+
             var mushroomEdibleVM = new MushroomViewModel
             {
-                Locations = new SelectList(await _serviceRepository.populateLocations(), "Value", "Text"),
-                Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
-                Edibles = new SelectList(await _serviceRepository.populateEdible(), "Value", "Text"),
+                Locations = new SelectList(locations ?? new List<SelectListItem>(), "Value", "Text"),
+                Families = new SelectList(families ?? new List<string>()),
+                Edibles = new SelectList(edibles ?? new List<SelectListItem>(), "Value", "Text"),
                 Mushrooms = await mushrooms.ToListAsync()
             };
 
@@ -105,7 +109,7 @@ namespace CanIEatIt.Controllers
         public string GetImageURL(string mushroomName)
         {
             var dir = Path.Combine("wwwroot", "images", "Mushrooms", mushroomName);
-            if (!Directory.Exists(dir)) return "images/default.png";
+            if (!Directory.Exists(dir)) return "/images/default.png";
 
             var files = Directory.GetFiles(dir);
 

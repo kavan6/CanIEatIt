@@ -14,9 +14,9 @@ namespace CanIEatIt.Services
     }
     public class ServiceRepository : IServiceRepository
     {
-        public Task<List<SelectListItem>> populateLocations()
+        public async Task<List<SelectListItem>> populateLocations()
         {
-            return Task.Factory.StartNew(() =>
+            return await Task.Factory.StartNew(() =>
             {
                 return new List<SelectListItem>()
                 {
@@ -30,9 +30,9 @@ namespace CanIEatIt.Services
             });
         }
 
-        public Task<List<SelectListItem>> populateEdible()
+        public async Task<List<SelectListItem>> populateEdible()
         {
-            return Task.Factory.StartNew(() =>
+            return await Task.Factory.StartNew(() =>
             {
                 return new List<SelectListItem>()
                 {
@@ -41,9 +41,9 @@ namespace CanIEatIt.Services
                 };
             });
         }
-        public Task<List<SelectListItem>> populateCapDiameters()
+        public async Task<List<SelectListItem>> populateCapDiameters()
         {
-            return Task.Factory.StartNew(() =>
+            return await Task.Factory.StartNew(() =>
             {
                 return new List<SelectListItem>()
                 {
@@ -58,9 +58,9 @@ namespace CanIEatIt.Services
             });
         }
 
-        public Task<List<SelectListItem>> populateStemHeights()
+        public async Task<List<SelectListItem>> populateStemHeights()
         {
-            return Task.Factory.StartNew(() =>
+            return await Task.Factory.StartNew(() =>
             {
                 return new List<SelectListItem>()
                 {

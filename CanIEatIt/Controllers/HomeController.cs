@@ -4,11 +4,11 @@ using System.Diagnostics;
 
 namespace CanIEatIt.Controllers
 {
-    public class MainController : Controller
+    public class HomeController : Controller
     {
-        private readonly ILogger<MainController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
-        public MainController(ILogger<MainController> logger)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }

@@ -14,8 +14,7 @@ namespace CanIEatIt.Data
         {
         }
 
-        public DbSet<CanIEatIt.Models.Mushroom> Mushroom { get; set; } = default!;
-
-        public DbSet<CanIEatIt.Models.Plant>? Plant { get; set; }
+        public virtual DbSet<CanIEatIt.Models.Mushroom> Mushroom { get; set; } = default!;
+        public virtual DbSet<CanIEatIt.Models.Plant>? Plant { get; set; }
     }
 }
