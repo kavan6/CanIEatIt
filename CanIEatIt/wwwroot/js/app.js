@@ -145,6 +145,15 @@ function changeChevron() {
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const capRange = document.getElementById('cap-range');
+    setRangeAny(capRange);
+
+    const stemRange = document.getElementById('stem-range');
+    setRangeAny(stemRange);
+
+});
+
 window.addEventListener('keyup', function (e) {
     if (e.key == ' ' && e.target == document.getElementById("input-keywords")) {
         createLabel(e.target);

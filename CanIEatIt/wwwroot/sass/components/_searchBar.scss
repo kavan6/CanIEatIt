@@ -6,11 +6,12 @@
     border: 2px solid #000000;
     border-radius: 5px;
     background-color: white;
-    max-height: 2.425rem;
+    max-height: 3rem;
 }
 
 .searchbar-form-text {
-    border: none;
+    border: none !important;
+    border-color: transparent !important;
     border-radius: 0.5em;
     outline: none;
     width: 100%;

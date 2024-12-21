@@ -66,6 +66,29 @@ namespace CanIEatIt.Controllers
             return View();
         }
 
+        // GET: Sort by alphabetical
+        public async Task<IActionResult> SortAlphabetical(List<Mushroom> mushrooms)
+        {
+            // If there are enough mushrooms to sort, sort them :)
+            if (mushrooms != null && mushrooms.Count > 1)
+            {
+                mushrooms = mushrooms.OrderBy(m => m.Name).ToList();
+            }
+
+            var mushroomVM = new MushroomViewModel { Mushrooms = mushrooms };
+            return Json(mushroomVM);
+        }
+        public List<Mushroom> SortAlphabeticalMushrooms(List<Mushroom> mushrooms)
+        {
+            // If there are enough mushrooms to sort, sort them :)
+            if (mushrooms != null && mushrooms.Count > 1)
+            {
+                mushrooms = mushrooms.OrderBy(m => m.Name).ToList();
+            }
+            return mushrooms;
+        }
+
+
         // GET: AJAX async search
 
         public async Task<IActionResult> Search(string searchValue)
@@ -123,9 +146,9 @@ namespace CanIEatIt.Controllers
         // GET: Main Page loader
         [HttpGet]
         public async Task<IActionResult> Database(
-                                                  string[] searchFamily, string[] searchLocation,
+                                                  List<String> searchFamily, List<String> searchLocation,
                                                   int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
-                                                  string[] searchKeyWords
+                                                  List<String> searchKeyWords
                                                  )
         {
 
@@ -142,7 +165,7 @@ namespace CanIEatIt.Controllers
 
             #region LINQ Searches
 
-            if (searchCapDiameter.HasValue && searchStemHeight > 0)
+            if (searchCapDiameter.HasValue && searchCapDiameter > 0)
             {
                 mushrooms = mushrooms.Where(x => ((searchCapDiameter >= x.LowerDiameter)&&(searchCapDiameter <= x.UpperDiameter)));
             }
@@ -218,11 +241,11 @@ namespace CanIEatIt.Controllers
                 Families = new SelectList(await familyQuery.Distinct().ToListAsync()),
                 Edibles = new SelectList(await _serviceRepository.populateEdible(), "Value", "Text"),
                 Mushrooms = allMushrooms,
-                SearchFamily = searchFamily,
-                SearchKeyWords = searchKeyWords,
                 SearchCapDiameter = searchCapDiameter.ToString(),
-                SearchStemHeight = searchStemHeight.ToString()
-                
+                SearchStemHeight = searchStemHeight.ToString(),
+                SearchLocations = searchLocation?.ToList(),
+                SearchFamilies = searchFamily?.ToList(),
+                SearchKeywords = searchKeyWords?.ToList()
             };
 
             return View(mushroomEdibleVM);
