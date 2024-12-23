@@ -12,6 +12,10 @@ using CanIEatIt.Services;
 using System.Text.RegularExpressions;
 using NUglify.Helpers;
 using Microsoft.VisualBasic.FileIO;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Identity;
 
 namespace CanIEatIt.Controllers
 {

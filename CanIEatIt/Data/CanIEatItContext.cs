@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CanIEatIt.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CanIEatIt.Data
 {
-    public class CanIEatItContext : DbContext
+    public class CanIEatItContext : IdentityDbContext
     {
         public CanIEatItContext (DbContextOptions<CanIEatItContext> options)
             : base(options)

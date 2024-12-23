@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using NUglify.Helpers;
 
 namespace CanIEatIt.Models
 {
@@ -12,7 +14,66 @@ namespace CanIEatIt.Models
         {
             using (var context = new CanIEatItContext(serviceProvider.GetRequiredService<DbContextOptions<CanIEatItContext>>()))
             {
-                if (context.Mushroom.Any())
+				if (!context.Users.Where(user => user.UserName == "Admin").Any())
+				{
+					context.Users.Add(
+						new IdentityUser
+						{
+							UserName = "Admin",
+							NormalizedUserName = "ADMIN"
+						}
+					);
+					context.SaveChanges();
+				}
+				if (!context.Users.Where(user => user.UserName == "BasicUser").Any())
+				{
+					context.Users.Add(
+						new IdentityUser
+						{
+							UserName = "BasicUser",
+							NormalizedUserName = "BASICUSER"
+						}
+					);
+					context.SaveChanges();
+				}
+				if (!context.Roles.Where(role=>role.Name == "Admin").Any())
+                {
+                    context.Roles.Add(
+                        new IdentityRole
+                        {
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        }
+                    );
+					context.SaveChanges();
+				}
+				if (!context.Roles.Where(role => role.Name == "BasicUser").Any())
+				{
+					context.Roles.Add(
+						new IdentityRole
+						{
+							Name = "BasicUser",
+							NormalizedName = "BASICUSER"
+						}
+					);
+					context.SaveChanges();
+				}
+
+				context.UserRoles.ForEach(ur => context.UserRoles.Remove(ur));
+                context.UserRoles.AddRange(
+                    new IdentityUserRole<string>
+                    {
+                        UserId = context.Users.Where(u=>u.UserName=="Admin").First().Id,
+                        RoleId = context.Roles.Where(r=>r.Name == "Admin").First().Id
+					},
+					new IdentityUserRole<string>
+					{
+						UserId = context.Users.Where(u => u.UserName == "BasicUser").First().Id,
+						RoleId = context.Roles.Where(r => r.Name == "BasicUser").First().Id
+					}
+				);
+                context.SaveChanges();
+				if (context.Mushroom.Any())
                 {
                     return;
                 }
