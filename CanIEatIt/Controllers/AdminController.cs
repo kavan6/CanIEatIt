@@ -5,17 +5,17 @@ using System.Security.Claims;
 
 namespace CanIEatIt.Controllers
 {
-    public class RolesController : Controller
+    public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RolesController(RoleManager<IdentityRole> roleManager)
+        public AdminController(RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
         }
 
         // List All the Roles
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var roles = _roleManager.Roles;
@@ -23,13 +23,15 @@ namespace CanIEatIt.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+		[Authorize(Roles = "Admin")]
+		public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IdentityRole model)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Create(IdentityRole model)
         {
             if(!_roleManager.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
             {
@@ -37,6 +39,12 @@ namespace CanIEatIt.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Logout", "Account");
         }
     }
 }

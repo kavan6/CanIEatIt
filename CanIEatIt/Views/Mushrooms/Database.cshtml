@@ -63,12 +63,16 @@
                 </div>
 
             </div>
-
+            @if(User.IsInRole("Admin"))
+            {
             <div class="col-lg-2 col-sm-2">
                 <div class="mt-3 mb-3">
                     <a class="btn btn-primary text-dark" asp-controller="Mushrooms" asp-action="Create">Create</a>
                 </div>
             </div>
+            } else {
+            <div class="col-lg-2"></div>
+            }
         </div>
 
     </div>

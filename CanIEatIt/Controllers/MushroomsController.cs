@@ -292,6 +292,7 @@ namespace CanIEatIt.Controllers
         }
 
         // GET: Mushrooms/Create
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
             return View();
@@ -302,7 +303,8 @@ namespace CanIEatIt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom, List<IFormFile> files)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Create([Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom, List<IFormFile> files)
         {
             if (ModelState.IsValid)
             {
@@ -336,7 +338,8 @@ namespace CanIEatIt.Controllers
         }
 
         private readonly List<string> allowedExtensions = new List<string> { ".jpg", ".jpeg", ".png" };
-        public async Task<IActionResult> UploadFiles(string mName, List<IFormFile> files)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> UploadFiles(string mName, List<IFormFile> files)
         {
             string baseDirectory = Path.Combine("wwwroot", "images", "Mushrooms", mName);
             Directory.CreateDirectory(baseDirectory);
@@ -367,8 +370,9 @@ namespace CanIEatIt.Controllers
             return Ok(new { count = files.Count(), size });
         }
 
-        // GET: Mushrooms/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+		// GET: Mushrooms/Edit/5
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Mushroom == null)
             {
@@ -388,7 +392,8 @@ namespace CanIEatIt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Family,Location,CapDiameter,StemHeight,Edible,EdibleDescription,CapDescription,StemDescription,GillDescription,SporeDescription,MicroscopicDescription,Note")] Mushroom mushroom)
         {
             if (id != mushroom.Id)
             {
@@ -438,8 +443,9 @@ namespace CanIEatIt.Controllers
             return View(mushroom);
         }
 
-        // GET: Mushrooms/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+		// GET: Mushrooms/Delete/5
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Mushroom == null)
             {
@@ -459,7 +465,8 @@ namespace CanIEatIt.Controllers
         // POST: Mushrooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Mushroom == null)
             {

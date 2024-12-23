@@ -77,17 +77,23 @@
                     <input asp-for="Note" class="form-control" />
                     <span asp-validation-for="Note" class="text-danger"></span>
                 </div>
+            @if (User.IsInRole("Admin"))
+            {
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
+            }
         </div>
-        <div class="col">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="col">
                 <div class="form-group">
                     <label for="FileUpload" class="control-label">Images</label>
                     <input id="FileUpload" type="file" name="files" multiple/>                
                 </div>
-        </div>
-</div>
+            </div>
+        }
+    </div>
 </form>
 
 <div>

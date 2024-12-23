@@ -7,10 +7,17 @@ using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CanIEatItContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CanIEatItContext") ?? throw new InvalidOperationException("Connection string 'CanIEatItContext' not found.")));
+
+Env.Load();
+
+var adminValKey1 = Environment.GetEnvironmentVariable("ADMIN_VALIDATION_KEY_1")!;
+builder.Services.AddSingleton(new List<string> { adminValKey1 });
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -66,13 +73,13 @@ app.Use(async (context, next) =>
     {
         var identity = new ClaimsIdentity(new[]
         {
-            new Claim(ClaimTypes.Name, "BasicUser"),
+            new Claim(ClaimTypes.Name, "Guest"),
             new Claim(ClaimTypes.Role, "BasicUser")
         }, "DefaultScheme");
 
-		var principle = new ClaimsPrincipal(identity);
+		var principal = new ClaimsPrincipal(identity);
 
-        await context.SignInAsync("DefaultScheme", principle);
+        await context.SignInAsync("DefaultScheme", principal);
 	}
 	await next();
 });
