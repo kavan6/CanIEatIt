@@ -183,6 +183,10 @@ window.addEventListener('click', function (e) {
 function grabSearchValue(e) {
     var val = e.value;
 
+    if (val == '') {
+        unFocusSuggestions();
+    }
+
     // Perform an AJAX request to the server
     fetch('/Mushrooms/Search?searchValue=' + encodeURIComponent(val), {
         method: 'GET',
@@ -195,12 +199,60 @@ function grabSearchValue(e) {
             return response.json(); // Assuming the server returns JSON
         })
         .then(data => {
-            updateMushroomCards(data);
+            updateSearchSuggestions(data);
             console.log(data); // Handle the response data (e.g., update your UI)
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
+}
+
+function focusSuggestions() {
+    var suggestions = document.getElementById('search-suggestions');
+    suggestions.style.border = '2px solid black';
+    suggestions.style.borderRadius = '0.5em';
+    suggestions.style.display = 'flex';
+}
+
+function unFocusSuggestions() {
+    var suggestions = document.getElementById('search-suggestions');
+    suggestions.style.border = '2px solid black';
+    suggestions.style.borderRadius = '0.5em';
+    suggestions.style.display = 'none';
+}
+
+function updateSearchSuggestions(result) {
+    const suggestionsDiv = document.getElementById('search-suggestions');
+    suggestionsDiv.innerHTML = '';
+
+    if (!result)
+    {
+        unFocusSuggestions();
+        return;
+    }
+
+    let suggestions = result.mushrooms?.slice(0, 10);
+
+    if (!suggestions || suggestions.length === 0)
+    {
+        unFocusSuggestions();
+        return;
+    }
+
+    focusSuggestions();
+
+    for (var i = 0; i < suggestions.length; i++) {
+        const suggestion = document.createElement("div");
+        suggestion.classList.add("suggestion-item");
+
+        suggestion.innerHTML = `
+            <a href="Information/${suggestions[i].id}" class="suggestion-link">
+                ${suggestions[i].name}
+            </a>
+        `;
+
+        suggestionsDiv.appendChild(suggestion);
+    }
 }
 
 function updateMushroomCards(result) {

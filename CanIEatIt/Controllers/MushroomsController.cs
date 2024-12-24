@@ -102,6 +102,7 @@ namespace CanIEatIt.Controllers
                 searchValue = null;
             }
 
+
             if (_context.Mushroom == null)
             {
                 return Problem("Entity set 'MushroomContext.Mushroom' is null.");
@@ -112,6 +113,9 @@ namespace CanIEatIt.Controllers
             if (!string.IsNullOrEmpty(searchValue))
             {
                 mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchValue.ToUpper()));
+            } else if (string.IsNullOrEmpty(searchValue))
+            {
+                return Json(null);
             }
 
             var results = await mushrooms.ToListAsync();
@@ -150,7 +154,7 @@ namespace CanIEatIt.Controllers
         // GET: Main Page loader
         [HttpGet]
         public async Task<IActionResult> Database(
-                                                  List<String> searchFamily, List<String> searchLocation,
+                                                  string searchName, List<String> searchFamily, List<String> searchLocation,
                                                   int? searchCapDiameter, int? searchStemHeight, string searchEdible, 
                                                   List<String> searchKeyWords
                                                  )
@@ -163,20 +167,36 @@ namespace CanIEatIt.Controllers
                 return Problem("Entity set 'MushroomContext.Mushroom' is null.");
             }
 
+            if(searchName == "Search mushrooms...")
+            {
+                searchName = "";
+            }
+
             IQueryable<string> familyQuery = from m in _context.Mushroom orderby m.Family select m.Family;
 
             var mushrooms = from m in _context.Mushroom select m;
 
             #region LINQ Searches
 
+            if(!string.IsNullOrEmpty(searchName))
+            {
+                mushrooms = mushrooms.Where(x => x.Name!.ToUpper().Contains(searchName.ToUpper()));
+            }
+
             if (searchCapDiameter.HasValue && searchCapDiameter > 0)
             {
                 mushrooms = mushrooms.Where(x => ((searchCapDiameter >= x.LowerDiameter)&&(searchCapDiameter <= x.UpperDiameter)));
+            } else if (!searchCapDiameter.HasValue)
+            {
+                searchCapDiameter = 0;
             }
 
             if (searchStemHeight.HasValue && searchStemHeight > 0)
             {
                 mushrooms = mushrooms.Where(x => ((searchStemHeight >= x.LowerHeight)&&(searchStemHeight <= x.UpperHeight)));
+            } else if (!searchStemHeight.HasValue)
+            {
+                searchStemHeight = 0;
             }
 
             if (!string.IsNullOrEmpty(searchEdible))
