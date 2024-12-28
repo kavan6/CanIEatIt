@@ -1,7 +1,5 @@
 function wipeInputBox(e) {
-    if (e.value == "Keywords..." || e.value == "Name..." || e.value == "Edible Keyword(s)..." || e.value == "Cap Keyword(s)..." || e.value == "Stem Keyword(s)..."
-        || e.value == "Gill Keyword(s)..." || e.value == "Spore Keyword(s)..." || e.value == "Microscopic Keyword(s)..." || e.value == "Note Keyword(s)..."
-        || e.value == "Search mushrooms...") {
+    if (e.value == "Keywords..." || e.value == "Name..." || e.value == "Search mushrooms..." ) {
         e.value = "";
     }
 }
@@ -13,24 +11,6 @@ function fillInputBox(e) {
 
     } else if (e == document.getElementById("input-name") && ("" == document.getElementById("input-name").value)) {
         e.value = "Name...";
-    }
-    else if (e == document.getElementById("input-edible") && ("" == document.getElementById("input-edible").value)) {
-        e.value = "Edible Keyword(s)...";
-    }
-    else if (e == document.getElementById("input-cap") && ("" == document.getElementById("input-cap").value)) {
-        e.value = "Cap Keyword(s)...";
-    }
-    else if (e == document.getElementById("input-stem") && ("" == document.getElementById("input-stem").value)) {
-        e.value = "Stem Keyword(s)...";
-    }
-    else if (e == document.getElementById("input-gill") && ("" == document.getElementById("input-gill").value)) {
-        e.value = "Gill Keyword(s)...";
-    }
-    else if (e == document.getElementById("input-spore") && ("" == document.getElementById("input-spore").value)) {
-        e.value = "Spore Keyword(s)...";
-    }
-    else if (e == document.getElementById("input-micro") && ("" == document.getElementById("input-micro").value)) {
-        e.value = "Microscopic Keyword(s)...";
     }
     else if (e == document.getElementById("searchbar-search") && ("" == document.getElementById("searchbar-search").value)) {
         e.value = "Search mushrooms...";
@@ -151,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const stemRange = document.getElementById('stem-range');
     setRangeAny(stemRange);
-
 });
 
 window.addEventListener('keyup', function (e) {

@@ -1,23 +1,23 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<h1>@ViewData["Title"] Us</h1>
+
+<div class="row">
+    <div class="col-xs-12 center-block text-center mt-3 mb-3">
+        <h1>@ViewData["Title"] Us</h1>
+    </div>
+</div>
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-3">
         <h3>Who are we?</h3>
-    </div>
 
-    <div class="row">
+        <hr />
+    </div>
+    <div class="row mt-3">
         <h3>What do we do?</h3>
-    </div>
 
-    <div class="row">
-        <h3>Contact Us</h3>
-        <form asp-action="Email" asp-controller="Contact">
-            <label for="email-message">Content</label>
-            <input id="email-message" type="text" />
-        </form>
+        <hr />
     </div>
 
 </div>

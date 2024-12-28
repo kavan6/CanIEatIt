@@ -1,0 +1,110 @@
+﻿@model CanIEatIt.Models.ContactViewModel;
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<div class="row">
+    <div class="col-xs-12 center-block text-center mt-3 mb-3">
+        <h1>Contact Us</h1>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <form asp-action="Email" asp-controller="Home">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col d-flex justify-content-center">
+                <div class="d-flex flex-column">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="email-fname" class="form-label">First name*</label>
+                            <div>
+                                <input class="input contact-input" type="text" id="email-fname" name="emailFirstName" asp-for="EmailFirstName" value=""/>
+                                <span asp-validation-for="EmailFirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="email-lname" class="form-label">Last name*</label>
+                            <div>
+                                <input class="input contact-input" type="text" id="email-lname" name="emailLastName" asp-for="EmailLastName" value="" />
+                                <span asp-validation-for="EmailLastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label for="email-sender" class="form-label">Email*</label>
+                    <div class="mb-3">
+                        <input class="input contact-input" type="text" id="email-sender" asp-for="EmailSender" value="" />
+                        <span asp-validation-for="EmailSender" class="text-danger"></span>
+                    </div>
+
+
+                    <label for="email-subject" class="form-label">Subject*</label>
+                    <div class="mb-3">
+                        <input class="input contact-input" type="text" id="email-subject" asp-for="EmailSubject" value="" />
+                        <span asp-validation-for="EmailSubject" class="text-danger"></span>
+                    </div>
+
+                    <label for="email-message" class="form-label">Message*</label>
+                    <div class="mb-3">
+                        <textarea cols="40" rows="5" class="input contact-input" id="email-message" asp-for="EmailBody"></textarea>
+                        <span asp-validation-for="EmailBody" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input type="submit" class="btn btn-primary" value="Send" />
+                        </div>
+                        <div class="col">
+                                @switch (Model.success)
+                                {
+                                    case "success":
+                                        <p id="success-message" style="color: darkolivegreen;">Email sent</p>
+                                        break;
+                                    case "error":
+                                        <p id="success-message" style="color: darkred;">Error email not sent</p>
+                                        break;
+                                    case "invalidemail":
+                                        <p id="success-message" style="color: darkred;">Invalid email</p>
+                                        break;
+                                    case "firstname":
+                                        <p id="success-message" style="color: darkred;">Missing first name</p>
+                                        break;
+                                    case "lastname":
+                                        <p id="success-message" style="color: darkred;">Missing last name</p>
+                                        break;
+                                    case "sender":
+                                        <p id="success-message" style="color: darkred;">Email missing sender</p>
+                                        break;
+                                    case "subject":
+                                        <p id="success-message" style="color: darkred;">Email missing subject</p>
+                                        break;
+                                    case "body":
+                                        <p id="success-message" style="color: darkred;">Email missing body</p>
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                <script>
+                                    setTimeout(() => {
+                                        const messageElement = document.getElementById('success-message');
+                                        if (messageElement) {
+                                            messageElement.style.display = 'none';
+                                        }
+                                    }, 20000);
+                                </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

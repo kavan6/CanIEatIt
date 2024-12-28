@@ -67,7 +67,7 @@
                                     <a class="nav-link text-dark disabled" asp-area="" asp-controller="Plants" asp-action="Picking">Picking Guide</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Plants" asp-action="Recipes">Recipes</a>
+                                    <a class="nav-link text-dark disabled" asp-area="" asp-controller="Plants" asp-action="Recipes">Recipes</a>
                                 </li>
                                 <li>
                                     <a class="nav-link text-dark disabled" asp-area="" asp-controller="Plants" asp-action="About">About</a>
@@ -76,6 +76,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -123,9 +126,10 @@
             <nav class="nav justify-content-center">
                 <a class="nav-link" accesskeyasp-area="" asp-controller="Mushrooms" asp-action="Index">Mushrooms</a>
                 <a class="nav-link" accesskeyasp-area="" asp-controller="Plants" asp-action="Index">Plants</a>
-                <a class="nav-link" accesskeyasp-area="" asp-controller="Main" asp-action="About">About</a>
+                <a class="nav-link" accesskeyasp-area="" asp-controller="Home" asp-action="About">About</a>
+                <a class="nav-link" accesskeyasp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
             </nav>
-            &copy; 2024 - Kavan Heppenstall - <a asp-area="" asp-controller="Main" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Kavan Heppenstall - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 </body>

@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const stemRange = document.getElementById('stem-range');
     setRangeAny(stemRange);
-
 });
 
 window.addEventListener('keyup', function (e) {
